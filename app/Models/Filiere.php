@@ -36,5 +36,9 @@ class Filiere extends Model
     {
         return $this->hasManyThrough(Etudians::class, Inscription::class, 'id_filiere', 'apogee', 'id_filiere', 'apogee');
     }
-   
+
+    public function demandes()
+    {
+        return $this->hasMany(Demande::class, 'id_filiere', 'id_filiere');
+    }
 }

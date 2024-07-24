@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Diplome extends Model
 {
     protected $table = 'diplome';
-
+    protected $primaryKey = 'id_diplome';
     use HasFactory;
     public function etudiants()
     {

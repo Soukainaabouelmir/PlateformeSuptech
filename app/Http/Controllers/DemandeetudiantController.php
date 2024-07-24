@@ -74,5 +74,25 @@ class DemandeetudiantController extends Controller
         return view('etudiant.views.demandenotification', compact('demandes'));
     }
 
+    public function store(Request $request)
+    {
+       
+        // Valider les données entrantes
+        $request->validate([
+            'apogee' => 'required|exists:etudient,apogee',
+            'id_filiere' => 'required',
+           'id_document' => 'required|exists:document_admin,id_document',
+        ]);
 
+        // Créer une nouvelle demande
+        Demande::create([
+            'apogee' => $request->input('apogee'),
+            'id_filiere' => $request->input('id_filiere'),
+            'id_document' => $request->input('id_document'),
+        ]);
+
+        // Rediriger avec un message de succès
+        return redirect()->back()->with('success', 'Demande enregistrée avec succès.');
+    }
 }
+
