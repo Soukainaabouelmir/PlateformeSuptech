@@ -9,26 +9,30 @@ use Illuminate\Support\Facades\DB; // Ajoutez cette ligne
 class Paiement extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     protected $table = 'paiement';
     protected $fillable = [
-        'nom',
-        'prenom',
-        'filiere',
-        'cni',
-        'n_telephone',
+       'apogee',
         'montant',
-        'choix',
+      'id_typepaiement',
         'date_paiement',
-        'mode_paiement',
+        'id_modepaiement',
         'mois_concerne',
         'image',
-        'Email',
+        
     ];
 
     public function etudiant()
     {
         return $this->belongsTo(Etudians::class, 'apogee', 'apogee');
+    }
+    public function modepaiement()
+    {
+        return $this->belongsTo(Modepaiement::class, 'id_modepaiement', 'id_modepaiement');
+    }
+    public function typepaiement()
+    {
+        return $this->belongsTo(Typepaiement::class, 'id_typepaiement', 'id_typepaiement');
     }
 
     // j'ai ajouté cette méthode pour obtenir la description du mode de paiement

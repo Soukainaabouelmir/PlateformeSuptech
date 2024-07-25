@@ -24,14 +24,14 @@ class ExamNotificationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'num_element' => 'required|exists:element,num_element',
+            'id_element' => 'required|exists:element,id_element',
             'id_filiere' => 'required|exists:filiere,id_filiere',
             'date_exam' => 'required',
             'heure_exam' => 'required',
         ]);
 
         Programme_Evaluation::create([
-            'num_element' => $request->num_element,
+            'id_element' => $request->id_element,
             'id_filiere' => $request->id_filiere,
             'date_exam' => $request->date_exam,
             'heure_exam' => $request->heure_exam,

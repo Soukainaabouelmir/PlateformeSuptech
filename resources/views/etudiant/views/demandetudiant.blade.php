@@ -129,6 +129,7 @@
     }
 </style>
 
+
 <div class="container" id="informations-demande-content" style="margin-left: 250px; margin-top:100px;">
     @if(session('success'))
         <div class="alert alert-success">
@@ -143,7 +144,9 @@
     </ul>
 
     <fieldset class="border p-4">
-        <legend class="w-auto" style="font-size: 16px; color:#173165"><strong>Informations Demande</strong></legend>
+
+        <legend class="w-auto" style="font-size: 16px; color:#173165"><strong> Informations Demande</strong></legend>
+
         <form action="{{ route('endemande') }}" method="POST">
             @csrf
             <div class="row">
@@ -164,16 +167,18 @@
             <div class="row">
                 <div class="col-md-6">
                     <h6>Filière</h6>
-                    <select class="form-control" id="filiere" name="filiere">
+
+                    <select class="form-control" id="filiere" name="id_filiere" required>
                         <option value="" disabled selected></option>
-                        <option value="Génie Industriel et Logistique Hospitalière">Génie Industriel et Logistique Hospitalière</option>
-                        <option value="Classes Préparatoires">Classes Préparatoires</option>
-                        <option value="Sciences de Gestion en Milieu Hospitalier et Industrie Médicale">Sciences de Gestion en Milieu Hospitalier et Industrie Médicale</option>
-                        <option value="Génie Digital et Intélligence Artificielle en santé">Génie Digital et Intélligence Artificielle en santé</option>
-                        <option value="Dispositifs Médicaux et affaires Réglementaires">Dispositifs Médicaux et affaires Réglementaires</option>
-                        <option value="Génie Biomédical">Génie Biomédical</option>
-                        <option value="Maintenance Médicale">Maintenance Médicale</option>
-                        <option value="Entrepreneuriat et Management Technologique">Entrepreneuriat et Management Technologique</option>
+                        <option value="2">Génie Industriel et Logistique Hospitalière</option>
+                        <option value="1">Classes Préparatoires</option>
+                        <option value="3">Sciences de Gestion en Milieu Hospitalier et Industrie Médicale</option>
+                        <option value="4">Génie Digital et Intélligence Artificielle en santé</option>
+                        <option value="5">Dispositifs Médicaux et affaires Réglementaires</option>
+                        <option value="6">Génie Biomédical</option>
+                        <option value="7">Maintenance Médicale</option>
+                        <option value="8">Entrepreneuriat et Management Technologique</option>
+
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -181,44 +186,41 @@
                     <select class="form-control" id="semestre" name="semestre">
                         <option value="S1">S1</option>
                         <option value="S2">S2</option>
+
                         <option value="S3">S3</option>
                         <option value="S4">S4</option>
                         <option value="S5">S5</option>
                         <option value="S6">S6</option>
-                        <option value="S7">S7</option>
-                        <option value="S8">S8</option>
-                        <option value="S9">S9</option>
-                        <option value="S10">S10</option>
+                        
                     </select>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h6>Votre numéro de téléphone</h6>
-                    <input class="form-control" type="text" name="Numero" value="{{ $user->telephone ?? '' }}" placeholder="Téléphone">
-                </div>
-                <div class="col-md-6">
-                    <h6>Votre Email</h6>
-                    <input class="form-control" type="email" name="Email" value="{{ $user->Email ?? '' }}" placeholder="Email">
-                </div>
-            </div>
+            
+          
             <div class="row">
                 <div class="col-md-12">
                     <h6>Type de demande :</h6>
                     <select class="form-control" name="id_document">
-                        <option value="Attestation inscription">Attestation d'Inscription</option>
-                        <option value="Relevé de notes">Relevé de Note</option>
+                        <option value="1">Attestation Inscription</option>
+                        <option value="2">Relevé de Note</option>
                     </select>
                 </div>
             </div>
+
+                    </select>
+                    
             <div class="row">
                 <div class="col-md-12">
                     <button class="btn button-enregistrer">Enregistrer</button>
                 </div>
             </div>
+                </div>
+            </div>
+           
+
         </form>
     </fieldset>
-</div>
+</div>  </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="//cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>

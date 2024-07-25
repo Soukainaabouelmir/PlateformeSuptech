@@ -41,4 +41,8 @@ class Filiere extends Model
     {
         return $this->hasMany(Demande::class, 'id_filiere', 'id_filiere');
     }
+    public function emploi()
+    {
+        return $this->hasMany(Emploi::class, 'id_filiere', 'id_filiere');
+    }
 }

@@ -98,12 +98,12 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="num_element"><strong>Matière:</strong></label>
+                                    <label for="id_element"><strong>Matière:</strong></label>
                                 </div>
                                 <div class="col-md-6">
-                                    <select name="num_element" id="num_element" class="form-control">
+                                    <select name="id_element" id="id_element" class="form-control">
                                         @foreach($elements as $element)
-                                            <option value="{{ $element->num_element }}">{{ $element->intitule }}</option>
+                                            <option value="{{ $element->id_element }}">{{ $element->intitule }}</option>
                                         @endforeach
                                     </select>
                                 </div>

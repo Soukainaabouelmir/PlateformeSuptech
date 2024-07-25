@@ -67,11 +67,12 @@
                                     <label for="id_filiere"><strong>Etablissement:</strong></label>
                                 </div>
                                 <div class="col-md-12">
-                                    <select name="code_etab" id="etablissement" class="form-control">
+                                    <select name="code_postal" id="etablissement" class="form-control">
                                         <option value=""></option>
-                                        @foreach ($etablissements as $etablissement)
-                                        <option value="{{ $etablissement->code_etab }}">{{ $etablissement->ville }}</option>
-                                    @endforeach
+                                       
+                                        <option value="28630">MOHAMMEDIA</option>
+                                        <option value="44003">ESSAOUIRA</option>
+                                  
                                        
                                     </select>
                                 </div>
@@ -98,10 +99,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="semestre"><strong>Semestre</strong></label>
-                                <select class="form-control" id="semestre" name="semestre">
+                                <select class="form-control" id="semestre" name="id_semestre">
                                     <option value="0: undefined" selected></option>
-                                    <option value="S1">S1</option>
-                                    <option value="S2">S2</option>
+                                    <option value="1">S1</option>
+                                    <option value="2">S2</option>
                                 </select>
                             </div>
                         </div>

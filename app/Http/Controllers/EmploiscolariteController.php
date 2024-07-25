@@ -27,16 +27,16 @@ class EmploiscolariteController extends Controller
             
             'id_filiere' => 'required|exists:filiere,id_filiere',
             'emploi_pdf' => 'required|file|mimes:pdf|max:2048',
-            'semestre' => 'required',
-            'code_etab' => 'required',
+            'id_semestre' => 'required|exists:semestre,id_semestre',
+            'code_postal' => 'required|exists:etablissement,code_postal',
         ]);
 
         // Création d'une nouvelle instance d'Emploi avec les données validées
         $emploi = new Emploi();
        
         $emploi->id_filiere = $validatedData['id_filiere'];
-        $emploi->semestre = $validatedData['semestre'];
-        $emploi->code_etab = $validatedData['code_etab'];
+        $emploi->id_semestre = $validatedData['id_semestre'];
+        $emploi->code_postal = $validatedData['code_postal'];
 
         // Vérification et traitement du fichier PDF téléchargé
         if ($request->hasFile('emploi_pdf')) {
@@ -67,38 +67,41 @@ class EmploiscolariteController extends Controller
 
 public function studentEmploi()
 {
-    // Récupérer l'ID de l'étudiant connecté
-    $studentId = Auth::guard('etudient')->id();
+    // Récupérer l'apogee de l'étudiant connecté
+    $studentApogee = Auth::guard('etudient')->user()->apogee;
     
-    if (!$studentId) {
+    if (!$studentApogee) {
         return redirect()->route('login')->with('error', 'Vous devez être connecté pour accéder à cette page.');
     }
 
-    \Log::info('ID de l\'étudiant : ' . $studentId);
+    \Log::info('Apogee de l\'étudiant : ' . $studentApogee);
 
     // Récupérer l'inscription de l'étudiant
-    $inscription = Inscription::where('apogee', $studentId)->first();
-
+    $inscription = Inscription::where('apogee', $studentApogee)->first();
    
+    if (!$inscription) {
+        \Log::error('Aucune inscription trouvée pour l\'apogee : ' . $studentApogee);
+        return redirect()->route('home')->with('error', 'Aucune inscription trouvée.');
+    }
+
     $idFiliere = $inscription->id_filiere;
-    $codeEtab = $inscription->code_etab;
+    $codepostal = $inscription->code_postal;
    
-
     \Log::info('Filière de l\'étudiant : ' . $idFiliere);
-    \Log::info('Code établissement de l\'étudiant : ' . $codeEtab);
+    \Log::info('Code établissement de l\'étudiant : ' . $codepostal);
     
-
     // Récupérer les emplois du temps pour la filière, l'établissement et le groupe de l'étudiant
     $emplois = Emploi::where('id_filiere', $idFiliere)
-                     ->where('code_etab', $codeEtab)
-                   
+                     ->where('code_postal', $codepostal)
                      ->get();
+
+    // Utiliser dd() pour vérifier les données récupérées
+    dd($emplois);
 
     \Log::info('Emplois récupérés : ' . json_encode($emplois));
 
     return view('etudiant.views.emploietudiant', compact('emplois'));
 }
-
 
 
 

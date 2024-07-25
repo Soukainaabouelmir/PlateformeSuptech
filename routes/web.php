@@ -43,7 +43,7 @@ use App\Http\Controllers\ReclamationScolariteController;
 use App\Http\Controllers\RhPersonnelControlleur;
 use App\Http\Controllers\DemandeScolaritearchiveController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\calendarcontroller;
 Route::get('/', function () {
 
     return view('homelogin');
@@ -105,6 +105,7 @@ Route::middleware(['is_scolarite'])->group(function () {
     Route::post('/emploi', [EmploiscolariteController::class, 'store'])->name('emploi.store');
     Route::post('/demande/{id}', [DemandeScolariteController::class, 'destroy'])->name('demandes.destroy');
     Route::get('demadnescolariteetudiants', [DemandeScolariteController::class, 'demandeEtudiants'])->name('getDataDemande');
+    Route::get('/calendar', [calendarcontroller::class, 'index']);
 });
 
 Route::middleware(['is_accueil'])->group(function () {
@@ -147,12 +148,12 @@ Route::middleware(['web'])->group(function () {
 
 Route::get('/logout', [EtudiantLoginController::class, 'logout'])->name('logout.etudiant');
 
-Route::get('/homeetudiant', [homeetudiantController::class, 'index'])->name('homeetudiant');
+
 
 route::get('/emploi', 'App\Http\Controllers\EmploietudiantController@index')->name('emploi');
 route::get('/demande', 'App\Http\Controllers\DemandeetudiantController@index')->name('demande');
 route::get('/demandenotification', 'App\Http\Controllers\DemandeetudiantController@espace')->name('demandenotification');
-route::post('/enregistrer-demande', 'App\Http\Controllers\DemandeetudiantController@enregistrerDemande')->name('endemande');
+route::post('/enregistrer-demande', 'App\Http\Controllers\DemandeetudiantController@store')->name('endemande');
 route::get('/reclamation', 'App\Http\Controllers\ReclamationetudiantController@index')->name('reclamation');
 Route::post('/enregistrer-reclamation', 'App\Http\Controllers\ReclamationetudiantController@enregistrerReclamation')->name('enreclamation');
 Route::post('/enregistrer-paiement', 'App\Http\Controllers\PaiementetudiantController@enregistrerPaiement')->name('enpaiement');
@@ -233,6 +234,7 @@ Route::delete('/personnel/{id}', [RhPersonnelControlleur::class, 'destroy'])->na
 
 
 Route::delete('/reclamation/{id}', [ReclamationScolariteController::class, 'destroy'])->name('reclamations.destroy');
+
 
 
 Route::post('/import-etudiants', [EtudiantController::class, 'import'])->name('import.etudiants');

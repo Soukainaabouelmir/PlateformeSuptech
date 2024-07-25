@@ -41,7 +41,6 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    
                                     <th>Emploi</th>
                                 </tr>
                             </thead>
@@ -49,7 +48,6 @@
                                 @if(isset($emplois) && count($emplois) > 0)
                                     @foreach ($emplois as $emploi)
                                         <tr>
-                                           
                                             <td>
                                                 <a href="{{ asset($emploi->emploi_pdf) }}" target="_blank" class="btn" style="color: rgb(63, 63, 232)">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-down" viewBox="0 0 16 16" style="color:rgb(63, 63, 232)">
@@ -58,9 +56,6 @@
                                                     </svg>
                                                     Télécharger
                                                 </a>
-                                                <button type="button" class="btn" data-toggle="modal" data-target="#pdfModal" data-pdf-url="{{ asset($emploi->emploi_pdf) }}" style="color: rgb(63, 63, 232)">
-                                                    Visualiser
-                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -73,23 +68,6 @@
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="pdfModalLabel" style="border: none;">Visualiser PDF</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <iframe src="" frameborder="0"></iframe>
             </div>
         </div>
     </div>

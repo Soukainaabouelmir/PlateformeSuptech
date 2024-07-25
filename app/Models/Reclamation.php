@@ -7,16 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reclamation extends Model
 {
-    protected $table = 'reclamation';
+    protected $table = 'reclamations';
     
     protected $fillable = [
-        'Nom',
-        'Prenom',
-        'Numero',
-        'Email',
-        'Type',
+        'apogee',
+        
+        'type_reclamation',
         'Description',
         'file_reclamation',
-        'date',
+        
     ];
+    public $timestamps = false;
 }

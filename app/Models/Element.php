@@ -15,7 +15,7 @@ class Element extends Model
     protected $fillable = [
        
        
-        'num_element',
+        'id_element',
         'intitule',
         'descriprion',
         'nbr_heure_cours',
@@ -37,7 +37,7 @@ class Element extends Model
     }
     public function programmeEvaluations()
     {
-        return $this->hasMany(Programme_Evaluation::class, 'num_element');
+        return $this->hasMany(Programme_Evaluation::class, 'id_element');
     }
     public function Absence_accueil()
     {

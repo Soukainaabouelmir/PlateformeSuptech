@@ -455,34 +455,17 @@ tr{
                             <form id="informations-parents">
                                 @if ($etudiant->diplome->isNotEmpty())
         @foreach ($etudiant->diplome as $diplome)
-            <div class="row mt-3">
-                <div class="col-md-6">
-                    <label for="diplome_{{ $diplome->id_diplome }}" class="form-label"><strong>Diplôme :</strong></label>
-                </div>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="diplome_{{ $diplome->id_diplome }}" name="diplome_{{ $diplome->id_diplome }}" value="{{ $diplome->diplome ?? '' }}" readonly>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-md-6">
-                    <label for="mention_{{ $diplome->id_diplome }}" class="form-label"><strong>Mention :</strong></label>
-                </div>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="mention_{{ $diplome->id_diplome }}" name="mention_{{ $diplome->id_diplome }}" value="{{ $diplome->pivot->mention ?? '' }}" readonly>
-                </div>
-            </div>
-        @endforeach
-    @else
-        <p>Aucun diplôme associé.</p>
-    @endif
+            
+           
+       
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="nom_pere" class="form-label"><strong>Année Bac:</strong></label>
+                                                <label for="diplome_{{ $diplome->id_diplome }}" class="form-label"><strong> Année Bac :</strong></label>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" id="annee_bac" name="annee_bac"    readonly>
+                                                <input type="text" class="form-control" id="diplome_{{ $diplome->id_diplome }}" name="diplome_{{ $diplome->id_diplome }}" value="{{ $diplome->Annee_bac ?? '' }}" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -498,34 +481,39 @@ tr{
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row mt-3">
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="N_tele" class="form-label"><strong>Bac :</strong></label>
+                                                <label for="diplome_{{ $diplome->id_diplome }}" class="form-label"><strong>Bac :</strong></label>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" id="N_tele" name="Telephone_pere"  readonly>
+                                                <input type="text" class="form-control" id="diplome_{{ $diplome->id_diplome }}" name="diplome_{{ $diplome->id_diplome }}" value="{{ $diplome->diplome ?? '' }}" readonly>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="Profession_pere" class="form-label"><strong>Mention
-                                                        :</strong></label>
+                                                <label for="mention_{{ $diplome->id_diplome }}" class="form-label"><strong>Mention :</strong></label>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" id="Profession_pere"
-                                                    name="Profession_pere"  readonly>
+                                                <input type="text" class="form-control" id="mention_{{ $diplome->id_diplome }}" name="mention_{{ $diplome->id_diplome }}" value="{{ $diplome->pivot->mention ?? '' }}" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                         
 
-                                    
+                                @endforeach
+                                @else
+                                    <p>Aucun diplôme associé.</p>
+                                @endif  
+                            </fieldset>
+                        </form>            
                     </div>
+
                 </div>
             </div>
         </div>
