@@ -38,8 +38,8 @@
 </style>
 
 @section('contenu')
-    <div id="informations-personnelles-content" class="content" style="margin-left: -20px; margin-top:120px; overflow: hidden;">
-        <div class="content" style="margin-left: 320px; margin-top:20px; overflow: hidden;">
+    <div id="informations-personnelles-content" class="content" style="margin-top: 30px;" >
+        <div class="content">
             <div id="reclamation" class="container">
 
                 @if (session('success'))

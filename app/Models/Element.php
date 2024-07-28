@@ -33,7 +33,7 @@ class Element extends Model
     }
     public function module()
     {
-        return $this->hasMany(Module::class, 'num_element',);
+        return $this->hasMany(Module::class, 'id_element',);
     }
     public function programmeEvaluations()
     {

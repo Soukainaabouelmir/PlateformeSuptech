@@ -105,7 +105,11 @@ Route::middleware(['is_scolarite'])->group(function () {
     Route::post('/emploi', [EmploiscolariteController::class, 'store'])->name('emploi.store');
     Route::post('/demande/{id}', [DemandeScolariteController::class, 'destroy'])->name('demandes.destroy');
     Route::get('demadnescolariteetudiants', [DemandeScolariteController::class, 'demandeEtudiants'])->name('getDataDemande');
-    Route::get('/calendar', [calendarcontroller::class, 'index']);
+    Route::get('/calendar', [calendarcontroller::class, 'index'])->name('calendar');
+    Route::get('/table', [calendarcontroller::class, 'indexx']);
+    Route::post('/calendar/store', [calendarcontroller::class, 'store']);
+    
+
 });
 
 Route::middleware(['is_accueil'])->group(function () {

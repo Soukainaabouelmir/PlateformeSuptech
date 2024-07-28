@@ -1,6 +1,6 @@
 <link rel="icon" type="image/png" href="{{ asset('asset/images/logo_img.png') }}">
 @extends('scolarite.layouts.navbarscolarite')
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 @section('contenu')
     <style>
@@ -12,6 +12,17 @@
         .custom-background {
             background-color: #173165;
         }
+        .navbar {
+        box-shadow: 0 10px 6px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+       
+       
+        position: fixed;
+        top: 0;
+        width: 100%;
+       
+    }
+    
 
         /* For screens smaller than 320px */
         @media screen and (max-width: 320px) {
@@ -106,7 +117,6 @@
         }
     </style>
 
-<<<<<<< Updated upstream
 <div id="page-content" class="d-flex flex-column" style="margin-left: 250px; padding: 20px;
 margin-right:10px;margin-top:20px; padding: 40px ;
 ">
@@ -217,7 +227,9 @@ margin-right:10px;margin-top:20px; padding: 40px ;
     </div></div>
 
     
-@endsection
-                    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     @endsection               
 
    

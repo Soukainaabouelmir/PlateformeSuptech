@@ -48,22 +48,20 @@
             margin-left: -20px;
             
         }
-<<<<<<< HEAD
+
         img{
             width: 130px;
         }
-=======
->>>>>>> 4eaba6a2f78b8c36f012c2ce9bd47432d98c5849
+
 
         .modal-dialog {
             max-width: 800px;
         }
-<<<<<<< HEAD
-=======
+
         img{
             width:130px;
         }
->>>>>>> 4eaba6a2f78b8c36f012c2ce9bd47432d98c5849
+
     }
     @media (width: 1920px) {
         .container {
@@ -71,17 +69,16 @@
             margin-left: -20px;
             
         }
-<<<<<<< HEAD
+
         img{
             width: 130px;
         }
-=======
->>>>>>> 4eaba6a2f78b8c36f012c2ce9bd47432d98c5849
+
 
         .modal-dialog {
             max-width: 800px;
         }
-<<<<<<< HEAD
+
     }
     @media (width: 2px) {
         .container {
@@ -92,7 +89,7 @@
         img{
             width: 130px;
         }
-=======
+
         img{
             width:130px;
         }
@@ -105,17 +102,15 @@
 
             
         }
->>>>>>> 4eaba6a2f78b8c36f012c2ce9bd47432d98c5849
 
         .modal-dialog {
             max-width: 800px;
         }
-<<<<<<< HEAD
-=======
+
         img{
             width:130px;
         }
->>>>>>> 4eaba6a2f78b8c36f012c2ce9bd47432d98c5849
+
     }
     @media (max-width: 320px) {
             .container {
@@ -139,7 +134,7 @@
         
     </style>
     <body>
-        <div class="container" style="margin-left: 150px; margin-top: 140px;">
+        <div class="container">
             <div class="row">
                 <div class="col-md-9">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: #173165; margin-left: 70px;">

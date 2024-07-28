@@ -68,8 +68,8 @@
     @extends('scolarite.layouts.navbarscolarite')
 
     @section('contenu')
-    <div id="informations-personnelles-content" class="content" style="margin-left: -20px; margin-top:190px;">
-        <div class="content" style="margin-left: 300px; margin-top:20px;">
+    <div id="informations-personnelles-content" class="content" style=" margin-top:90px;">
+        <div class="content" >
             <div id="reclamation" class="container">
                 @if(session('success'))
                     <div class="alert alert-success" role="alert">
