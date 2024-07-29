@@ -9,7 +9,7 @@ class Date extends Model
 {
     protected $table = 'date';
     use HasFactory;
-   
+    public $timestamps = false;
 
    
     protected $fillable = [

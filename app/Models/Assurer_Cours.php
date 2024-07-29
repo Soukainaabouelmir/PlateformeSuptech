@@ -9,6 +9,7 @@ class Assurer_Cours extends Model
 {
     protected $table = 'assurer_cours';
     use HasFactory;
+    public $timestamps = false;
     protected $fillable = [
        
        
@@ -22,6 +23,10 @@ class Assurer_Cours extends Model
           
            
        ];
+       public function professeur()
+    {
+        return $this->belongsTo(Personnel::class, 'id_prof', 'id_personnel');
+    }
     public function element()
     {
         return $this->belongsTo(Element::class, 'id_element', 'id_element');
@@ -34,13 +39,13 @@ class Assurer_Cours extends Model
     {
         return $this->belongsTo(Date::class, 'id_date', 'id_date');
     }
-    public function heure_fin()
+    public function heureFin()
     {
-        return $this->belongsTo(Heure_Fin::class, 'id_heure_fin', 'id_heure_fin');
+        return $this->belongsTo(Heure_Fin::class, 'id_heure_fin');
     }
-    public function heure_debut()
+    public function heureDebut()
     {
-        return $this->belongsTo(Heure_debut::class, 'id_heure_debut', 'id_heure_debut');
+        return $this->belongsTo(Heure_Debut::class, 'id_heure_debut');
     }
     public function prof()
     {

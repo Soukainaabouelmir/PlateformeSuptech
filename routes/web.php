@@ -107,8 +107,8 @@ Route::middleware(['is_scolarite'])->group(function () {
     Route::get('demadnescolariteetudiants', [DemandeScolariteController::class, 'demandeEtudiants'])->name('getDataDemande');
     Route::get('/calendar', [calendarcontroller::class, 'index'])->name('calendar');
     Route::get('/table', [calendarcontroller::class, 'indexx']);
-    Route::post('/calendar/store', [calendarcontroller::class, 'store']);
-    
+    Route::get('/save-calendar', [calendarcontroller::class, 'getEvents'])->name('getEvent');
+    Route::post('/save-calendar', [calendarcontroller::class, 'saveEvent'])->name('storeEvent');
 
 });
 

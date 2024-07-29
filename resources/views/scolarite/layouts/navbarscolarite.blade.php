@@ -8,7 +8,7 @@ box-shadow: 0 10px 6px rgba(0, 0, 0, 0.1);
 </style>
 <nav class="navbare" style="height:50px;;background-color:#173165; color:rgb(255, 255, 255);">
     <div class="container">
-        <img class="m-0 p-0 img-logo" src="{{ asset('asset/images/logo.webp') }}" alt="suptech logo" width="10%" style="margin-top: 30px;">
+        
         <div class="navbar-left">
             <div class="d-flex align-items-center">
                 @if (Auth::user())
@@ -45,22 +45,27 @@ box-shadow: 0 10px 6px rgba(0, 0, 0, 0.1);
 </nav>
 
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light"  style="background-color: #ffffff;">
+    <img class="m-0 p-0 img-logo" src="{{ asset('asset/images/logo.webp') }}" alt="suptech logo" width="10%" style="margin-top: 30px;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#" style="color: #173165;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+            class="bi bi-book-fill" viewBox="0 0 16 16">
+            <path
+                d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783" />
+        </svg>&nbsp;&nbsp;&nbsp;Emploi du temps </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="#">Paiement
+          </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
+            Liste étudiants
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#">Action</a>
@@ -70,7 +75,7 @@ box-shadow: 0 10px 6px rgba(0, 0, 0, 0.1);
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Another Dropdown
+            Demandes étudiants
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
             <a class="dropdown-item" href="#">Action</a>
