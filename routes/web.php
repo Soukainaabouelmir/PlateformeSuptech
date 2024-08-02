@@ -93,6 +93,7 @@ Route::middleware(['is_scolarite'])->group(function () {
     Route::get('/paiementscolarite', [PaiementScolariteController::class, 'index'])->name('paiementscolarite');
     Route::get('/exams/create', [ExamNotificationController::class, 'create'])->name('scolarite.views.notificationsexam');
     Route::get('/demandescolarite', [DemandeScolariteController::class, 'index'])->name('demandescolarite');
+    Route::get('/demandesfetch', [DemandeScolariteController::class, 'fetchDemandes'])->name('demandes.data');
     Route::post('/demandes/{apogee}/valider', [DemandeScolariteController::class, 'valider'])->name('demandes.valider');
     Route::post('/demandes/archiver/{apogee}', [DemandeScolariteController::class, 'archiver'])->name('demandes.archiver');
     Route::get('/demandescolarite/search', [DemandeScolariteController::class, 'search'])->name('demandescolarite.search');
@@ -106,9 +107,14 @@ Route::middleware(['is_scolarite'])->group(function () {
     Route::post('/demande/{id}', [DemandeScolariteController::class, 'destroy'])->name('demandes.destroy');
     Route::get('demadnescolariteetudiants', [DemandeScolariteController::class, 'demandeEtudiants'])->name('getDataDemande');
     Route::get('/calendar', [calendarcontroller::class, 'index'])->name('calendar');
-    Route::get('/table', [calendarcontroller::class, 'indexx']);
+    
     Route::get('/save-calendar', [calendarcontroller::class, 'getEvents'])->name('getEvent');
     Route::post('/save-calendar', [calendarcontroller::class, 'saveEvent'])->name('storeEvent');
+    
+    Route::get('/etudiant/data', [ListetudiantController::class, 'fetchEtudiantss'])->name('etudiants.data');
+    // web.php (routes)
+Route::get('/etudiants/{id}/edit', [ListetudiantController::class, 'edit']);
+Route::get('/etudiants/{id}', [ListetudiantController::class, 'destroy']);
 
 });
 
@@ -221,8 +227,8 @@ Route::get('demadneetudiants', [DemandeetudiantController::class, 'demandeEtudia
 Route::get('/fetch-etudiants', [AjouteNoteController::class, 'indexx'])->name('fetch.etudiants');
 Route::get('/fetch', [AjouteNoteController::class, 'index'])->name('fetch');
 
-Route::get('reclamationscolariteetudiants', [ReclamationScolariteController::class, 'reclamationEtudiants'])->name('getDataReclamation');
-Route::get('paiementscolariteetudiants', [PaiementScolariteController::class, 'paiementEtudiants'])->name('getDataPaiement');
+Route::get('reclamationscolariteetudiants', [ReclamationScolariteController::class, 'reclamationEtudiants'])->name('reclamation.data');
+Route::get('paiementscolariteetudiants', [PaiementScolariteController::class, 'paiementEtudiants'])->name('paiement.data');
 Route::get('paiementetudiants', [PaiementetudiantController::class, 'paiementEtudiantshistorique'])->name('getDataPaiementetudiant');
 Route::get('/getPaidMonths', [PaiementetudiantController::class, 'getPaidMonths']);
 

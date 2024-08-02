@@ -11,7 +11,7 @@ class Etudians extends Authenticatable implements AuthenticatableContract
     use HasFactory;
 
     protected $table = 'etudient';
-    protected $primaryKey = 'apogee';
+   
     public $incrementing = false;
     public $timestamps = false;
 
@@ -23,30 +23,17 @@ class Etudians extends Authenticatable implements AuthenticatableContract
         'CNI',
         'Sexe',
         'Date_naissance',
-        'Pays',
-        'Diplome_acces',
-        'Serie_bac',
-        'Date_inscription',
-        'Specialite_diplome',
-        'Mention_bac',
-        'Etablissement_bac',
-        'Pourcentage_bourse',
         'id',
         'image',
         'telephone',
         'Email',
         'Adresse',
-        'nom_tuteur',
-        'proffesion_tuteur',
-        'telephone_tuteur',
+        
     ];
 
-    protected $hidden = ['apogee', 'remember_token'];
+   
 
-    public function getAuthPassword()
-    {
-        return $this->apogee; // Utilise 'apogee' comme mot de passe
-    }
+    
 
     public function notes_evaluation()
     {

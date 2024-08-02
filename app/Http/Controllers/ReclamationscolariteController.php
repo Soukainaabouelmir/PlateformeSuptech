@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Reclamation;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables; 
+use Illuminate\Support\Facades\DB;
+ use Illuminate\Support\Facades\Log;
 class ReclamationscolariteController extends Controller
 {
   
@@ -16,8 +18,23 @@ class ReclamationscolariteController extends Controller
     }
     public function reclamationEtudiants()
     {
-        $reclamations = Reclamation::select(['id','apogee','Nom', 'Prenom','intitule','Numero','Email','Type','Description','file_reclamation']);
-    
+        $reclamations = DB::table('reclamations')
+        ->select([
+            'reclamations.apogee',
+            'reclamations.type_reclamation',
+            'reclamations.description',
+            'reclamations.file_reclamation',
+            'etudient.Nom as etudiant_nom',
+            'etudient.Prenom as etudiant_prenom',
+            'etudient.Email as etudiant_email',
+            'etudient.telephone as etudiant_telephone',
+           
+        ])
+        ->join('etudient', 'reclamations.apogee', '=', 'etudient.apogee');
+       
+    // Log the SQL query
+    \Log::info($reclamations->toSql());
+
         return DataTables::of($reclamations)
             ->addColumn('file_reclamation', function ($reclamation) {
                 // Si le fichier est une image

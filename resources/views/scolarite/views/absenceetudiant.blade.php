@@ -4,10 +4,7 @@
     <style>
     
         /* Styles personnalisés */
-       form {
-            margin-top: 200px; /* Espacement par rapport au haut */
-           
-        }
+      
     
         h6 {
             margin-bottom: 0.6rem; /* Espacement entre les éléments */
@@ -22,7 +19,7 @@
     
     </style>
     
-    <div class="container"style="margin-left: 180px; margin-top:-50px; ">
+    <div class="container" style="margin-top: 30px;">
         <div class="row justify-content-center">
             
             <div class="col-md-6">

@@ -20,58 +20,53 @@ class ListetudiantController extends Controller
 
         return view('scolarite.views.listeetudiant', compact('etablissements', 'filieres'));
     }
-
-    public function fetchEtudiants()
+    public function fetchEtudiantss()
     {
-        $etudiant = Etudians::select(['id', 'CNE', 'CNI', 'Nom', 'Prenom', 'telephone', 'Email', 'Adresse', 'Annee_bac', 'Sexe', 'Date_naissance', 'Pays', 'Serie_bac', 'Specialite_diplome', 'Mention_bac', 'Etablissement_bac', 'Pourcentage_bourse']);
-
-        return DataTables::of($etudiant)
-            ->addIndexColumn()
-            ->addColumn('actions', function ($etudiant) {
-                return '<div style="display: flex; gap: 5px;">
-                        <button type="button" class="btn btn-primary edit-btn" data-id="' . $etudiant->id . '" style="width:auto; background-color: #173165;">Modifier</button>
-                        <form id="delete-form-' . $etudiant->id . '" action="' . route('etudiants.destroy', $etudiant->id) . '" method="POST" style="margin: 0;">
-                            ' . csrf_field() . method_field('DELETE') . '
-                            <button type="button" class="btn btn-danger" onclick="confirmDelete(' . $etudiant->id . ')" style="width:auto;">Supprimer</button>
-                        </form>
-                    </div>';
-            })
-            ->rawColumns(['actions'])
+        $etudiants = Etudians::join('inscriptions', 'etudient.apogee', '=', 'inscriptions.apogee')
+                             ->join('filiere', 'inscriptions.id_filiere', '=', 'filiere.id_filiere')
+                             ->join('etablissement', 'etudient.code_postal', '=', 'etablissement.code_postal')
+                             ->leftJoin('tuteur_etudiant', 'etudient.apogee', '=', 'tuteur_etudiant.apogee')
+                             ->leftJoin('tuteur', 'tuteur_etudiant.id_tuteur', '=', 'tuteur.id_tuteur')
+                             ->select([
+                                'etudient.id',
+                                 'etudient.apogee',
+                                 'etudient.CNE',
+                                 'etudient.CNI',
+                                 'etudient.Nom',
+                                 'etudient.Prenom',
+                                 'etudient.telephone',
+                                 'etudient.Email',
+                                 'etudient.Adresse',
+                                 'etudient.Sexe',
+                                 'etudient.Date_naissance',
+                                 'filiere.intitule as filiere', // Assuming the column is named 'nom_filiere'
+                                 'etablissement.ville', // Assuming the column is named 'ville'
+                                 'tuteur.nom as tuteur_nom',
+                             'tuteur.tel1 as tuteur_tel1',
+                             'tuteur.adresse as tuteur_adresse' // Assuming the column is named 'telephone'
+                             ]);
+    
+        return DataTables::of($etudiants)
+        ->addIndexColumn()
+        ->addColumn('actions', function($etudiant) {
+            return '<div style="display: flex; gap: 5px;">
+                    <button type="button" class="btn btn-primary edit-btn" data-id="' . $etudiant->id . '" style="width:auto; background-color: #173165;">Modifier</button>
+                    <form id="delete-form-' . $etudiant->id . '" action="' . route('etudiants.destroy', $etudiant->id) . '" method="POST" style="margin: 0;">
+                        ' . csrf_field() . method_field('DELETE') . '
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete(' . $etudiant->id . ')" style="width:auto;">Supprimer</button>
+                    </form>
+                </div>';
+    })
+           
+ 
+        ->rawColumns(['actions'])
             ->make(true);
     }
+    
+    // EtudiantController.php
 
-    public function update(Request $request)
-    {
-        // Valider les données du formulaire
-        $validatedData = $request->validate([
-            'id' => 'required|integer|exists:etudient,id',
-            'Nom' => 'required|string|max:255',
-            'Prenom' => 'required|string|max:255',
-            'CNE' => 'required|string|max:20',
-            'CNI' => 'required|string|max:20',
-            'Date_naissance' => 'required|date',
-            'Pays' => 'required|string|max:100',
-            'Email' => 'required|email|max:255',
-            'Adresse' => 'required|string|max:255',
-            'Serie_bac' => 'required|string|max:50',
-            'Mention_bac' => 'required|string|max:50',
-            'Etablissement_bac' => 'required|string|max:100',
-            'Pourcentage_bourse' => 'required',
-        ]);
-
-        try {
-            // Trouver l'étudiant par ID ou lever une exception si non trouvé
-            $etudiant = Etudians::findOrFail($validatedData['id']);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return response()->json(['error' => 'Étudiant non trouvé.'], 404);
-        }
-
-        // Mettre à jour les informations de l'étudiant
-        $etudiant->update($validatedData);
-
-        // Retourner une réponse JSON en cas de succès
-        return response()->json(['success' => 'Informations de l\'étudiant mises à jour avec succès.'], 200);
-    }
+    
+   
 
     public function store(Request $request)
     {
@@ -163,15 +158,6 @@ class ListetudiantController extends Controller
         return $year . $randomNumber;
     }
 
-    public function destroy($id)
-    {
-        // Trouver l'étudiant par ID
-        $etudiant = Etudians::where('id', $id)->firstOrFail();
-
-        // Supprimer l'étudiant
-        $etudiant->delete();
-
-        // Rediriger avec un message de succès
-        return redirect()->back()->with('success', 'Étudiant supprimé avec succès.');
-    }
+   
+   
 }

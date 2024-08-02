@@ -1,221 +1,285 @@
 <link rel="icon" type="image/png" href="{{ asset('asset/images/logo_img.png') }}">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css">
-@extends('scolarite.layouts.navbarscolarite')
-@section('contenu')
-<<<<<<< HEAD
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+
+    <!-- Styles -->
+    <link href="{{ asset('asset/css/lib/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/themify-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/data-table/buttons.bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('asset/css/lib/menubar/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/helper.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/style.css') }}" rel="stylesheet">
+</head>
 <style>
-    th{
-        color: #173165;
-    }
-    @media (width: 2560px) {
-        .container {
-            max-width: 2600px;
-            
-        }}
-        @media (width: 1920px) {
-        .container {
-            max-width: 3000px;
-            margin-left: -20px;
-            
-        }
-        img{
-            width: 130px;
-        }
+    .logo{
+        background-color: rgb(255, 255, 255);
     }
 </style>
-    <div class="container" style="margin-left: 150px; margin-top:140px; ">
-        <div class="row">
-            <div class="col-md-9">
-                
-                
-                <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<body>
+
+
+    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+        <div class="nano">
+            <div class="nano-content">
+                <div class="logo"> <a class="navbar-brand" href=""><img class="m-0 p-0 img-logo" src="{{ asset('asset/images/logo.webp') }}" alt="suptech logo" width="70%" style="margin-left: 10px;"></div>
+                <ul>
                     
-=======
-    <style>
-        th {
-            color: #173165;
-        }
+                   
+                   
+                    <li><a href="{{ route('listetudiant') }}"><i class="ti-view-list-alt"></i> Liste étudiants </a></li>
+                    <li><a href="{{ route('demandescolarite') }}"><i class="ti-files"></i>  Demandes étudiants</a></li>
 
-        @media (width: 2560px) {
-            .container {
-                max-width: 2600px;
+                    
+                    <li><a href="{{ route('paiementscolarite') }}"><i class="ti-user"></i> Paiement étudiants</a></li>
+                    <li><a href="{{ route('reclamationscolarite') }}"><i class="ti-layout-grid2-alt"></i> Réclamations étudiants</a></li>
+                   
+                    <li><a href="{{ route('scolarite.views.emploi') }}"><i class="ti-calendar"></i> Emploi du Temps </a>
+                       
+                    </li>
+                    <li><a href="{{ route('scolarite.views.notificationsexam') }}"><i class="ti-email"></i> Notifications Exams </a>
+                       
+                    </li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Absence étudiants </a>
+                       
+                    </li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Absence Prof </a>
+                       
+                    </li>
+                   
+                    
+                   
+                   
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /# sidebar -->
 
-            }
-        }
-    </style>
-    <div class="container" style="margin-left: 150px; margin-top:140px; ">
+
+<div class="header">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-9">
-
-                <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-
->>>>>>> 4eaba6a2f78b8c36f012c2ce9bd47432d98c5849
+            <div class="col-lg-12">
+                <div class="float-left">
+                    <div class="hamburger sidebar-toggle">
+                        <span class="line"></span>
+                        <span class="line"></span>
+                        <span class="line"></span>
+                    </div>
                 </div>
-                <div class="container">
-                    <table class="table table-striped" id="paiementscolarite">
-                        <thead>
-                            <tr>
-<<<<<<< HEAD
-                               
-                         <th class="th-color border" scope="col">Numero de demande</th>
-                         <th class="th-color border" scope="col">Date Paiement</th>
-                                     
-                                                <th class="th-color border" scope="col">Nom</th>
-                                                <th class="th-color border" scope="col">Prenom</th>
-                                                <th class="th-color border" scope="col">Filiére</th>
-                                                <th class="th-color border" scope="col">Apogee</th>
-                                                <th class="th-color border" scope="col">E-mail</th>
-                                                <th class="th-color border" scope="col">Numero de Téléphone</th>
-                                                <th class="th-color border" scope="col">CNI</th>
-                                                <th class="th-color border" scope="col">Montant</th>
-                                                <th class="th-color border" scope="col">Mode de Paiement</th>
-                                                <th class="th-color border" scope="col">Mois</th>
-                                                <th class="th-color border" scope="col">Choix</th>
-                                               
- 
-                                                <th class="th-color border" scope="col">Image</th>
-                                               
-                                               
-                
-=======
-
-                                <th class="th-color border" scope="col">Numero de demande</th>
-                                <th class="th-color border" scope="col">Date Paiement</th>
-
-                                <th class="th-color border" scope="col">Nom</th>
-                                <th class="th-color border" scope="col">Prenom</th>
-                                <th class="th-color border" scope="col">E-mail</th>
-                                <th class="th-color border" scope="col">Numero de Téléphone</th>
-                                <th class="th-color border" scope="col">CNI</th>
-                                <th class="th-color border" scope="col">Montant</th>
-                                <th class="th-color border" scope="col">Mode de Paiement</th>
-                                <th class="th-color border" scope="col">Mois</th>
-                                <th class="th-color border" scope="col">Choix</th>
-
-
-                                <th class="th-color border" scope="col">Image</th>
-
-
-
->>>>>>> 4eaba6a2f78b8c36f012c2ce9bd47432d98c5849
-                            </tr>
-                        </thead>
-                    </table>
+                <div class="float-right">
+                  
+                    <div class="dropdown dib">
+                        <div class="header-icon" data-toggle="dropdown">
+                            <li class="nav-item">
+                                @if (Auth::user())
+                                    <span class="navbar-text" style="color:#173165; font-size:15px;font-weight:600;">
+                                        {{ Auth::user()->name }}
+                                    </span>
+                                @else
+                                    <a class="nav-link" href="#" style="color: #173165;">Nom utilisateur</a>
+                                @endif
+                                <i class="ti-user" style="color:#173165;" ></i>
+                            </li>
+                        </div>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="ti-close"></i>Déconnecter
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<div class="content-wrap">
+    <div class="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 p-r-0 title-margin-right">
+                    <div class="page-header">
+                    </div>
+                </div>
+                <!-- /# column -->
+                <div class="col-lg-4 p-l-0 title-margin-left">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <ol class="breadcrumb">
+                               
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# column -->
+            </div>
+            <!-- /# row -->
+            <section id="main-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="bootstrap-data-table-panel">
+                                <div class="table-responsive">
+                                    <table id="paiement-table" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Apogee</th>
+                                                <th>Nom</th>
+                                                <th>Prénom</th>
+                                                <th>Téléphone</th>
+                                                <th>Email</th>
+                                                <th>Montant</th>
+                                                <th>Date paiement</th>
+                                                <th>mois</th>
+                                                <th>Type paimenet</th>
+                                                <th>mode paiement</th>
+                                                <th>image</th>
+                                               
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
 
+                <div class="row">
+                    <div class="col-lg-12">
+                       
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
 
-    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
+<!-- jquery vendor -->
+<script src="{{ asset('asset/js/lib/jquery.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/jquery.nanoscroller.min.js') }}"></script>
+<!-- nano scroller -->
+<script src="{{ asset('asset/js/lib/menubar/sidebar.js') }}"></script>
+<script src="{{ asset('asset/js/lib/preloader/pace.min.js') }}"></script>
+<!-- sidebar -->
+<!-- bootstrap -->
+<script src="{{ asset('asset/js/lib/bootstrap.min.js') }}"></script>
+<script src="{{ asset('asset/js/scripts.js') }}"></script>
+<!-- scripit init-->
+<script src="{{ asset('asset/js/lib/data-table/datatables.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/jszip.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/pdfmake.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/vfs_fonts.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/buttons.print.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/datatables-init.js') }}"></script>
 
-    <script>
-        $('#paiementscolarite').DataTable({
-            processing: true,
-            serverSide: true,
-<<<<<<< HEAD
-            ajax: "{{ route('getDataPaiement')}}",
-            columns: [
-                { data: 'id_paiement', name: 'id_paiement' },
-                { data: 'date_paiement', name: 'date_paiement' },
-                { data: 'nom', name: 'nom' },
-                { data: 'prenom', name: 'prenom' },
-                { data: 'intitule', name: 'intitule' },
-                { data: 'apogee', name: 'apogee' },
-                { data: 'Email', name: 'Email' },
-                { data: 'n_telephone', name: 'n_telephone' },
-                { data: 'cni', name: 'cni' },
-                { data: 'montant', name: 'montant' },
-                { data: 'mode_paiement', name: 'mode_paiement' },  
-                  { data: 'mois_concerne', name: 'mois_concerne' },
-                  { data: 'choix', name: 'choix' },
-               
-                { data: 'image', name: 'image' },
-               
-              
-              
-              
-             
-               
-              
-                
-              
-            ]
-        });
-    
-</script>
 <script>
-    $('#filter-filiere').change(function() {
-        table.draw();
+    $(document).ready(function() {
+    $('#paiement-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{{ route('paiement.data') }}",
+            type: "GET",
+        },
+        columns: [
+            { data: 'apogee', name: 'apogee' },
+            { data: 'etudiant_nom', name: 'etudient.Nom' },
+            { data: 'etudiant_prenom', name: 'etudient.Prenom' },
+            { data: 'etudiant_email', name: 'etudient.Email' },
+            { data: 'etudiant_telephone', name: 'etudient.telephone' },
+            { data: 'date_paiement', name: 'date_paiement' },
+            { data: 'mois_concerne', name: 'mois_concerne' },
+            { data: 'montant', name: 'montant' },
+            { data: 'mode_paiement_description', name: 'mode_paiement.description' },
+            { data: 'type_paiement_description', name: 'type_paiement.description' },
+            { data: 'image', name: 'image', orderable: false, searchable: false }
+        ],
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'copy',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'csv',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'excel',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'pdf',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            }
+        ]
+    });
+});
+</script>
+
+
+<script>
+      
+    var userButton = document.querySelector('.dropdown-toggle');
+
+    
+    var userDropdownMenu = document.querySelector('#userDropdownMenu');
+
+    
+    userButton.addEventListener('click', function() {
+        
+        userDropdownMenu.classList.toggle('show');
     });
 </script>
-
-=======
-            ajax: "{{ route('getDataPaiement') }}",
-            columns: [{
-                    data: 'id_paiement',
-                    name: 'id_paiement'
-                },
-                {
-                    data: 'date_paiement',
-                    name: 'date_paiement'
-                },
-                {
-                    data: 'nom',
-                    name: 'nom'
-                },
-                {
-                    data: 'prenom',
-                    name: 'prenom'
-                },
-                {
-                    data: 'Email',
-                    name: 'Email'
-                },
-                {
-                    data: 'n_telephone',
-                    name: 'n_telephone'
-                },
-                {
-                    data: 'cni',
-                    name: 'cni'
-                },
-                {
-                    data: 'montant',
-                    name: 'montant'
-                },
-                {
-                    data: 'mode_paiement',
-                    name: 'mode_paiement'
-                },
-                {
-                    data: 'mois_concerne',
-                    name: 'mois_concerne'
-                },
-                {
-                    data: 'choix',
-                    name: 'choix'
-                },
-
-                {
-                    data: 'image',
-                    name: 'image'
-                },
-
-
-
-
-
-
-
-
-
-            ]
-        });
-    </script>
->>>>>>> 4eaba6a2f78b8c36f012c2ce9bd47432d98c5849
-@endsection
+</body>
+</html>

@@ -13,6 +13,8 @@
             border-radius: 5px;
             width: 100%;
             height: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
         }
 
         #modifier:hover {
@@ -34,6 +36,16 @@
             font-weight: 700;
         }
 
+        /* Form Container Styles */
+        #reclamation {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 2px;
+            background-color: #fff;
+            transform: perspective(1000px) rotateX(1deg);
+            transition: transform 0.3s ease;
+        }
+
         /* Responsive Styles */
         @media (min-width: 2560px) {
             .container {
@@ -41,17 +53,7 @@
             }
         }
 
-        @media (width: 1920px) {
-            .container {
-                max-width: 3000px;
-                margin-left: -20px;
-            }
-
-            img {
-                width: 130px;
-            }
-        }
-
+       
         @media (max-width: 768px) {
             #informations-personnelles-content {
                 margin-left: 0;
@@ -68,8 +70,8 @@
     @extends('scolarite.layouts.navbarscolarite')
 
     @section('contenu')
-    <div id="informations-personnelles-content" class="content" style=" margin-top:90px;">
-        <div class="content" >
+    <div id="informations-personnelles-content" class="content" style="margin-top: 40px;">
+        <div class="content">
             <div id="reclamation" class="container">
                 @if(session('success'))
                     <div class="alert alert-success" role="alert">
@@ -79,8 +81,18 @@
 
                 <form action="{{ route('exams.store') }}" method="POST">
                     @csrf
-
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="id_filiere"><strong>Etablissement:</strong></label>
+                            <select name="code_postal" id="etablissement" class="form-control">
+                                <option value=""></option>
+                                <option value="28630">MOHAMMEDIA</option>
+                                <option value="44003">ESSAOUIRA</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="row">
+                        
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-6">

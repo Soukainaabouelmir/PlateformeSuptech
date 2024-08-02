@@ -1,7 +1,5 @@
 <link rel="icon" type="image/png" href="{{ asset('asset/images/logo_img.png') }}">
-@extends('etudiant.layouts.navbaretudiant')
 
-@section('contenu')
 
     <style>
        input :read-only{
@@ -49,13 +47,9 @@ tr{
 
 
 
-        .content {
-            margin-top: 20px;
-        }
+       
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+       
 
         .suptech_sante_radio {
             margin-left: 0px;
@@ -64,9 +58,7 @@ tr{
         @media (min-width: 768px) {
 
            
-            .content {
-                margin-left: 300px;
-            }
+           
 
             .suptech_sante_radio {
                 margin-left: 270px;
@@ -78,12 +70,14 @@ tr{
 }
         
     </style>
+@extends('etudiant.layouts.navbaretudiant')
 
+@section('contenu')
 
 
    
-    <div   style=" margin-top:20px; overflow: hidden;">
-    <div style="margin-left: 0px; margin-top: 100px;">
+    <div>
+    <div>
         <div class="content">
             <button id="boutonInformations">Informations étudiant</button>
             <button id="boutonCursus">Cursus</button>
@@ -104,20 +98,7 @@ tr{
                 <legend class="w-auto" style="font-size: 16px; color:#173165"><strong>Etablissment</strong></legend>
                 <form id="etablissment">
                     
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="Suptech"><strong>Suptech Santé :</strong></label>
-                             
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="Code_National" name="etablissement" value="{{ $etudiant->etablissement->ville }}" 
-                             readonly>
-                           
-                                
-                            </div>
-                        </div>
-                    </div>
+                    
                         
                         
                         
@@ -128,8 +109,8 @@ tr{
     </div>
 
    
-    <div id="identifiants-etudiant-content" class="content" style="margin-left: -20px; margin-top:20px; overflow: hidden;">
-        <div class="content" style="margin-left: 300px; margin-top:20px; overflow: hidden;">
+    <div id="identifiants-etudiant-content" class="content">
+        <div class="content" >
             <fieldset class="border p-3">
                 <legend class="w-auto" style="font-size: 16px; color:#173165"><strong> Identifiants étudiant</strong>
                 </legend>
@@ -182,8 +163,7 @@ tr{
                                             :</strong></label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="date_inscription" name="num_annee" value="{{ $etudiant->inscriptions->first()->num_annee ?? 'N/A' }}" 
-                                    readonly>
+                                   
 
                                 </div>
                             </div>
@@ -195,31 +175,10 @@ tr{
                                 <div class="col-md-6">
                                     <label for="cycle" class="form-label"><strong>Filiere :</strong></label>
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="Pourcentage_bourse" name="filiere" value="{{ $etudiant->inscriptions->first()->filiere->intitule ?? 'N/A' }}"   readonly>
-
-                                </div>
+                                
                             </div>
                         </div>
-                        @if ($etudiant->bourse->isNotEmpty())
-                                @foreach ($etudiant->bourse as $bourse)
-
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="bourse_taux_{{ $bourse->id_bourse }}" class="form-label"><strong>Taux de Bourse :</strong></label>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="bourse_taux_{{ $bourse->id_bourse }}" name="bourse_taux_{{ $bourse->id_bourse }}" value="{{ $bourse->taux_bourse ?? '' }}" readonly>
-
-                                </div>
-                            </div>
-                        </div>
-                     @endforeach
-                            @else
-                                <p>Aucune bourse associée.</p>
-                            @endif</div>
+                       </div>
                 </form>
             </fieldset>
         </div>
@@ -229,8 +188,8 @@ tr{
 
     <!-- Formulaire pour Renseignements étudiant ou personnels-->
     <div id="renseignements-etudiant-content" class="content"
-        style="margin-left: -20px; margin-top:20px; overflow: hidden;">
-        <div class="content" style="margin-left: 300px; margin-top:20px; overflow: hidden;">
+       >
+        <div class="content">
             <fieldset class="border p-3">
                 <legend class="w-auto" style="font-size: 16px; color:#173165"><strong> Renseignements étudiant</strong>
                 </legend>
@@ -330,9 +289,7 @@ tr{
                                 <div class="col-md-6">
                                     <label for="Pays" class="form-label"><strong>Pays:</strong></label>
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="Pays" name="pays" value="{{ $etudiant->pays->pays }}" readonly>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -376,8 +333,8 @@ tr{
 
 
     <div id="informations-parents-content" class="content"
-        style="margin-left: -20px; margin-top:20px; overflow: hidden;">
-        <div class="content" style="margin-left: 300px; margin-top:20px; overflow: hidden;">
+        >
+        <div class="content">
             <fieldset class="border p-3">
                 <legend class="w-auto" style="font-size: 16px; color:#173165"><strong> Informations Tuteur</strong>
                 </legend>
@@ -440,225 +397,9 @@ tr{
 
     
 
-    <!--Tableau pour Renseignements Académique -->
-    <div id="renseignement-academique-baccalaureat-content" class="content"
-        style="margin-left: -20px; margin-top:20px; overflow: hidden;">
-        <div class="content" style="margin-left: 300px; margin-top: 20px;">
-
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-
-                        <fieldset class="border p-3">
-                            <legend class="w-auto" style="font-size: 16px; color:#173165"><strong> Baccalauréat</strong>
-                            </legend>
-                            <form id="informations-parents">
-                                @if ($etudiant->diplome->isNotEmpty())
-        @foreach ($etudiant->diplome as $diplome)
-            
-           
-       
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="diplome_{{ $diplome->id_diplome }}" class="form-label"><strong> Année Bac :</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="diplome_{{ $diplome->id_diplome }}" name="diplome_{{ $diplome->id_diplome }}" value="{{ $diplome->Annee_bac ?? '' }}" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="prenom_pere" class="form-label"><strong> Etablissment:</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="prenom_pere" name="Prenom_pere"  readonly
-                                                   >
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="diplome_{{ $diplome->id_diplome }}" class="form-label"><strong>Bac :</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="diplome_{{ $diplome->id_diplome }}" name="diplome_{{ $diplome->id_diplome }}" value="{{ $diplome->diplome ?? '' }}" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="mention_{{ $diplome->id_diplome }}" class="form-label"><strong>Mention :</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="mention_{{ $diplome->id_diplome }}" name="mention_{{ $diplome->id_diplome }}" value="{{ $diplome->pivot->mention ?? '' }}" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                        
-
-                                @endforeach
-                                @else
-                                    <p>Aucun diplôme associé.</p>
-                                @endif  
-                            </fieldset>
-                        </form>            
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
     
-    <div id="renseignement-academique-cursus-externe-content" class="content"
-        style="margin-left: -20px; margin-top:20px; overflow: hidden;">
-        <div class="content" style="margin-left: 300px; margin-top: 20px;">
 
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-
-                        <fieldset class="border p-3">
-                            <legend class="w-auto" style="font-size: 16px; color:#173165"><strong>Cursus Externe</strong>
-                            </legend>
-                            <form id="informations-parents">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="nom_pere" class="form-label"><strong>Année universitaire :</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="annee_bac" name="annee_bac"readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="prenom_pere" class="form-label"><strong> Diplôme:</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="prenom_pere" name="Prenom_pere"  readonly
-                                                   >
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="N_tele" class="form-label"><strong>Obtenu :</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="N_tele" name="Telephone_pere" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="Profession_pere" class="form-label"><strong>Etablissement
-                                                        :</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="Profession_pere"
-                                                    name="Profession_pere" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                        
-
-                                   
-                                    
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--<div id="renseignement-academique-cursus-interne-content" class="content"
-        style="margin-left: -20px; margin-top:20px; overflow: hidden;">
-        <div class="content" style="margin-left: 300px; margin-top: 20px;">
-
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-
-                        <fieldset class="border p-3">
-                            <legend class="w-auto" style="font-size: 16px; color:#173165"><strong>Cursus Interne</strong>
-                            </legend>
-                            
-                            <form id="informations-parents">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="nom_pere" class="form-label"><strong>Année universitaire :</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="annee_bac" name="annee_bac" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="prenom_pere" class="form-label"><strong> Inscription:</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="prenom_pere" name="Prenom_pere"readonly
-                                                   >
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="N_tele" class="form-label"><strong>Mention:</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="N_tele" name="Telephone_pere" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="Profession_pere" class="form-label"><strong>Etat
-                                                        :</strong></label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="Profession_pere"
-                                                    name="Profession_pere" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>-->
-                                
-                                        
-
-                                       
-
-
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                        
   
 
     
@@ -716,6 +457,6 @@ tr{
     }
 </script>
 
-
+@endsection
 
     

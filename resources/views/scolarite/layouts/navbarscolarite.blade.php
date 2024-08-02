@@ -1,92 +1,149 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ asset('asset/images/logo_img.png') }}">
+
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+
+    <!-- Styles -->
+    <link href="{{ asset('asset/css/lib/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/themify-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/data-table/buttons.bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('asset/css/lib/menubar/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/helper.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/style.css') }}" rel="stylesheet">
+</head>
 
 <style>
-   .navbar{
-box-shadow: 0 10px 6px rgba(0, 0, 0, 0.1);
-   }
+    .logo {
+        background-color: rgb(255, 255, 255);
+    }
+
+    #modifier {
+        background-color: #173165;
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        height: 40px;
+    }
+
+    #modifier:hover {
+        background-color: #3966c2;
+    }
 </style>
-<nav class="navbare" style="height:50px;;background-color:#173165; color:rgb(255, 255, 255);">
-    <div class="container">
-        
-        <div class="navbar-left">
-            <div class="d-flex align-items-center">
-                @if (Auth::user())
-                    <span class="navbar-item p-5" style="text-decoration: none; color:#ffffff; font-weight: 600;">
-                        {{ Auth::user()->name }}
-                    </span>
-                @else
-                    <a class="navbar-item p-5" href="#" style="text-decoration: none;">Nom utilisateur</a>
-                @endif
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                            class="bi bi-person-fill icon-style" viewBox="0 0 16 16" style="color: #ffffff;">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                        </svg>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="userDropdownMenu">
-                        <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="far fa-fw fa-arrow-alt-circle-left me-1"></i> Se deconnecter
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
-                    </ul>
+
+<body>
+
+    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+        <div class="nano">
+            <div class="nano-content">
+                <div class="logo">
+                    <a class="navbar-brand" href="">
+                        <img class="m-0 p-0 img-logo" src="{{ asset('asset/images/logo.webp') }}" alt="suptech logo" width="70%" style="margin-left: 10px;">
+                    </a>
+                </div>
+                <ul>
+                    <li><a href="{{ route('listetudiant') }}"><i class="ti-view-list-alt"></i> Liste étudiants</a></li>
+                   
+                    <li><a href="{{ route('demandescolarite') }}"><i class="ti-files"></i>  Demandes étudiants</a></li>
+                    <li><a href="{{ route('paiementscolarite') }}"><i class="ti-user"></i> Paiement étudiants</a></li>
+                    <li><a href="{{ route('reclamationscolarite') }}"><i class="ti-layout-grid2-alt"></i> Réclamations étudiants</a></li>
+                    <li><a href="{{ route('scolarite.views.emploi') }}"><i class="ti-calendar"></i> Emploi du Temps </a></li>
+                    <li><a href="{{ route('scolarite.views.notificationsexam') }}"><i class="ti-email"></i> Notifications Exams </a></li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Absence étudiants </a></li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Absence Prof </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /# sidebar -->
+
+    <div class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="float-left">
+                        <div class="hamburger sidebar-toggle">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                        </div>
+                    </div>
+                    <div class="float-right">
+                        <div class="dropdown dib">
+                            <div class="header-icon" data-toggle="dropdown">
+                                <li class="nav-item">
+                                    @if (Auth::user())
+                                        <span class="navbar-text" style="color:#173165; font-size:15px;font-weight:600;">
+                                            {{ Auth::user()->name }}
+                                        </span>
+                                    @else
+                                        <a class="nav-link" href="#" style="color: #173165;">Nom utilisateur</a>
+                                    @endif
+                                    <i class="ti-user" style="color:#173165;"></i>
+                                </li>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="ti-close"></i>  déconnecter
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</nav>
 
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light"  style="background-color: #ffffff;">
-    <img class="m-0 p-0 img-logo" src="{{ asset('asset/images/logo.webp') }}" alt="suptech logo" width="10%" style="margin-top: 30px;">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#" style="color: #173165;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-            class="bi bi-book-fill" viewBox="0 0 16 16">
-            <path
-                d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783" />
-        </svg>&nbsp;&nbsp;&nbsp;Emploi du temps </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Paiement
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Liste étudiants
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Demandes étudiants
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-      </ul>
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                @yield('contenu')
+            </div>
+        </div>
     </div>
-  </nav>
-  @yield('contenu')
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="{{ asset('asset/js/lib/jquery.min.js') }}"></script>
+    <script src="{{ asset('asset/js/lib/jquery.nanoscroller.min.js') }}"></script>
+    <!-- nano scroller -->
+    <script src="{{ asset('asset/js/lib/menubar/sidebar.js') }}"></script>
+    <script src="{{ asset('asset/js/lib/preloader/pace.min.js') }}"></script>
+    <!-- sidebar -->
+    <!-- bootstrap -->
+    <script src="{{ asset('asset/js/lib/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('asset/js/scripts.js') }}"></script>
+    <!-- scripit init-->
+    <script src="{{ asset('asset/js/lib/data-table/datatables.min.js') }}"></script>
+    <script src="{{ asset('asset/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('asset/js/lib/data-table/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('asset/js/lib/data-table/jszip.min.js') }}"></script>
+    <script src="{{ asset('asset/js/lib/data-table/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('asset/js/lib/data-table/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('asset/js/lib/data-table/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('asset/js/lib/data-table/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('asset/js/lib/data-table/datatables-init.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+</body>
+</html>

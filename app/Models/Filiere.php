@@ -18,7 +18,7 @@ class Filiere extends Model
         'intitule',
         'description',
         'nombre_annee',
-        'cycle',
+       
         'cin_coordinateur',
           
            

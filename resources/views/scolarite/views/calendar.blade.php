@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -169,7 +170,7 @@
             </div>
         </div>
     </div>
-
+   
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
@@ -189,6 +190,7 @@
             calendar.render();
         });
     </script>
+
 </body>
 </html>
 

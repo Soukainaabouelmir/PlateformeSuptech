@@ -1,240 +1,289 @@
 <link rel="icon" type="image/png" href="{{ asset('asset/images/logo_img.png') }}">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css">
-@extends('scolarite.layouts.navbarscolarite')
-@section('contenu')
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+
+    <!-- Styles -->
+    <link href="{{ asset('asset/css/lib/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/themify-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/data-table/buttons.bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('asset/css/lib/menubar/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/helper.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/style.css') }}" rel="stylesheet">
+</head>
 <style>
-    th{
-        background-color: #ffffff;
-        color: black;
+    .logo{
+        background-color: rgb(255, 255, 255);
     }
-   table{
-    overflow: auto;
-   }
-    @media (width: 2560px) {
-        .container {
-            max-width: 2600px;
-            
-        }
-    img{
-        width: 150px;
-    }}
-        @media (width: 1920px) {
-        .container {
-            max-width: 3000px;
-            margin-left: -20px;
-            
-        }
-        img{
-            width: 130px;
-        }
-    }
-    .archived-row {
-    background-color: #727272;
-}
-
 </style>
-    <div class="container" style="margin-left: 150px; margin-top:140px; ">
-        <div class="row">
-            <div class="col-md-9">
-                <a type="button" href="{{ route('demandescolarite.archive') }}" class="btn btn-primary" id="btnArchived" style="margin-left: 60px;">Afficher les demandes archivées</a>
+<body>
 
-                <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+        <div class="nano">
+            <div class="nano-content">
+                <div class="logo"> <a class="navbar-brand" href=""><img class="m-0 p-0 img-logo" src="{{ asset('asset/images/logo.webp') }}" alt="suptech logo" width="70%" style="margin-left: 10px;"></div>
+                <ul>
                     
+                   
+                   
+                    <li><a href="{{ route('listetudiant') }}"><i class="ti-view-list-alt"></i> Liste étudiants </a></li>
+                    <li><a href="{{ route('demandescolarite') }}"><i class="ti-files"></i>  Demandes étudiants</a></li>
+                    <li><a href="{{ route('paiementscolarite') }}"><i class="ti-user"></i> Paiement étudiants</a></li>
+                    <li><a href="{{ route('reclamationscolarite') }}"><i class="ti-layout-grid2-alt"></i> Réclamations étudiants</a></li>
+                   
+                    <li><a href="{{ route('scolarite.views.emploi') }}"><i class="ti-calendar"></i> Emploi du Temps </a>
+                       
+                    </li>
+                    <li><a href="{{ route('scolarite.views.notificationsexam') }}"><i class="ti-email"></i> Notifications Exams </a>
+                       
+                    </li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Absence étudiants </a>
+                       
+                    </li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Absence Prof </a>
+                       
+                    </li>
+                   
+                    
+                   
+                   
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /# sidebar -->
 
-    <style>
-        th {
-            color: #173165;
-        }
 
-        @media (width: 2560px) {
-            .container {
-                max-width: 2600px;
-
-            }
-        }
-    </style>
-    <div class="container" style="margin-left: 150px; margin-top:140px; ">
+<div class="header">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-9">
-
-                <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+            <div class="col-lg-12">
+                <div class="float-left">
+                    <div class="hamburger sidebar-toggle">
+                        <span class="line"></span>
+                        <span class="line"></span>
+                        <span class="line"></span>
+                    </div>
                 </div>
-                <div class="container">
-                    <table class="table table-striped" id="demandescolarite">
-                        <thead>
-                            <tr>
-
-             <th class="th-color border" scope="col">N°Demande</th>
-             <th class="th-color border" scope="col">Apogee</th>
-                <th class="th-color border" scope="col">Nom</th>
-                <th class="th-color border" scope="col">Prénom</th>
-                <th class="th-color border" scope="col">Filiére</th>
-                <th class="th-color border" scope="col">Semestre</th>
-                <th class="th-color border" scope="col">Numero de Téléphone</th>
-                <th class="th-color border" scope="col">Email</th>
-                <th class="th-color border" scope="col">Type</th>
-                <th class="th-color border">Actions</th>
-            
-                                <th class="th-color border" scope="col">N°Demande</th>
-                                <th class="th-color border" scope="col">Nom</th>
-                                <th class="th-color border" scope="col">Prénom</th>
-                                <th class="th-color border" scope="col">Numero de Téléphone</th>
-                                <th class="th-color border" scope="col">Email</th>
-                                <th class="th-color border" scope="col">Type</th>
-                                <th class="th-color border">Actions</th>
-                            </tr>
-                        </thead>
-                        
-                    </table>
+                <div class="float-right">
+                  
+                    <div class="dropdown dib">
+                        <div class="header-icon" data-toggle="dropdown">
+                            <li class="nav-item">
+                                @if (Auth::user())
+                                    <span class="navbar-text" style="color:#173165; font-size:15px;font-weight:600;">
+                                        {{ Auth::user()->name }}
+                                    </span>
+                                @else
+                                    <a class="nav-link" href="#" style="color: #173165;">Nom utilisateur</a>
+                                @endif
+                                <i class="ti-user" style="color:#173165;" ></i>
+                            </li>
+                        </div>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="ti-close"></i>  déconnecter
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="content-wrap">
+    <div class="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 p-r-0 title-margin-right">
+                    <div class="page-header">
+                    </div>
+                </div>
+                <!-- /# column -->
+                <div class="col-lg-4 p-l-0 title-margin-left">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <ol class="breadcrumb">
+                               
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# column -->
+            </div>
+            <!-- /# row -->
+            <section id="main-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="bootstrap-data-table-panel">
+                                <div class="table-responsive">
+                                    <table id="demandes-table" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Apogee</th>
+                                                <th>Nom</th>
+                                                <th>Prénom</th>
+                                                <th>Email</th>
+                                                <th>Téléphone</th>
+                                                <th>Filiére</th>
+                                                <th>Type de demande</th>
+                                                <th>Actions</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                <div class="row">
+                    <div class="col-lg-12">
+                       
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
 
+<!-- jquery vendor -->
+<script src="{{ asset('asset/js/lib/jquery.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/jquery.nanoscroller.min.js') }}"></script>
+<!-- nano scroller -->
+<script src="{{ asset('asset/js/lib/menubar/sidebar.js') }}"></script>
+<script src="{{ asset('asset/js/lib/preloader/pace.min.js') }}"></script>
+<!-- sidebar -->
+<!-- bootstrap -->
+<script src="{{ asset('asset/js/lib/bootstrap.min.js') }}"></script>
+<script src="{{ asset('asset/js/scripts.js') }}"></script>
+<!-- scripit init-->
+<script src="{{ asset('asset/js/lib/data-table/datatables.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/jszip.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/pdfmake.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/vfs_fonts.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/buttons.print.min.js') }}"></script>
+<script src="{{ asset('asset/js/lib/data-table/datatables-init.js') }}"></script>
 
-    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
-
-    <script>
-        $('#demandescolarite').DataTable({
+<script>
+    $(document).ready(function() {
+        $('#demandes-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('getDataDemande')}}",
+            ajax: {
+                url: "{{ route('demandes.data') }}",
+                type: "GET",
+            },
             columns: [
-                { data: 'id', name: 'id' },
                 { data: 'apogee', name: 'apogee' },
-                { data: 'Nom', name: 'Nom' },
-                { data: 'Prenom', name: 'Prenom' },
-                { data: 'filiere', name: 'filiere' },
-                { data: 'semestre', name: 'semestre' },
-                { data: 'Numero', name: 'Numero' },
-                { data: 'Email', name: 'Email' },
-                { data: 'Type', name: 'Type' },
-            ajax: "{{ route('getDataDemande') }}",
-            columns: [{
-                    data: 'id_demande',
-                    name: 'id_demande'
-                },
-                
+                { data: 'etudiant_nom', name: 'etudient.Nom' },
+                { data: 'etudiant_prenom', name: 'etudient.Prenom' },
+                { data: 'etudiant_telephone', name: 'etudient.telephone' },
+                { data: 'etudiant_email', name: 'etudient.Email' },
+                { data: 'filiere_intitule', name: 'filiere.intitule' },
+                { data: 'document_description', name: 'document_admin.description' },
+                { data: 'actions', name: 'actions', orderable: false, searchable: false },
+            ],
+            dom: 'Bfrtip',
+            buttons: [
                 {
-                    data: 'Nom',
-                    name: 'Nom'
-                },
-                {
-                    data: 'Prenom',
-                    name: 'Prenom'
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
                 },
                 {
-                    data: 'Numero',
-                    name: 'Numero'
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
                 },
                 {
-                    data: 'Email',
-                    name: 'Email'
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
                 },
                 {
-                    data: 'Type',
-                    name: 'Type'
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
                 },
                 {
-                    data: 'actions',
-                    name: 'actions',
-                    orderable: false,
-                    searchable: false
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
                 }
-
             ]
         });
+    });
+</script>
+
+<script>
+      
+    var userButton = document.querySelector('.dropdown-toggle');
+
     
+    var userDropdownMenu = document.querySelector('#userDropdownMenu');
+
+    
+    userButton.addEventListener('click', function() {
+        
+        userDropdownMenu.classList.toggle('show');
+    });
 </script>
 <script>
-    function confirmDelete(id) {
-    if (confirm("Are you sure you want to delete this student?")) {
-        document.getElementById('delete-form-' + id).submit();
+    function confirmValidation(apogee) {
+    if (confirm('Are you sure you want to validate this request?')) {
+        document.getElementById('validate-form-' + apogee).submit();
+    }
+}
+
+function confirmArchive(apogee) {
+    if (confirm('Are you sure you want to archive this request?')) {
+        document.getElementById('archive-form-' + apogee).submit();
     }
 }
 </script>
 
 
-    <script>
-        function confirmValidation(apogee) {
-            
-            if (confirm('Êtes-vous sûr de vouloir valider cette demande ?')) {
-               
-                document.getElementById('validate-form-' + apogee).submit();
-            }
-        }
-    </script>
-
-<script>
-    function confirmArchive(apogee) {
-    if (confirm('Êtes-vous sûr de vouloir archiver cette demande?')) {
-        document.getElementById('archive-form-' + apogee).submit();
-    }}
-</script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Handle validation button click
-            $('.btn-validate').on('click', function() {
-                var apogee = $(this).data('apogee');
-                var form = $('#validate-form-' + apogee);
-
-                $.ajax({
-                    url: form.attr('action'),
-                    method: 'POST',
-                    data: form.serialize(),
-                    success: function(response) {
-                        if (response.success) {
-                            // Disable the buttons
-                            form.find('button').prop('disabled', true);
-                            $('#archive-form-' + apogee).find('button').prop('disabled', true);
-                        } else {
-                            alert('Une erreur s\'est produite lors de la validation de la demande.');
-                        }
-                    },
-                    error: function() {
-                        alert('Une erreur s\'est produite lors de la validation de la demande.');
-                    }
-                });
-            });
-
-            // Handle archive button click
-            $('.btn-archive').on('click', function() {
-                var apogee = $(this).data('apogee');
-                var form = $('#archive-form-' + apogee);
-
-                $.ajax({
-                    url: form.attr('action'),
-                    method: 'POST',
-                    data: form.serialize(),
-                    success: function(response) {
-                        if (response.success) {
-                            // Disable the buttons
-                            form.find('button').prop('disabled', true);
-                            $('#validate-form-' + apogee).find('button').prop('disabled', true);
-                        } else {
-                            alert('Une erreur s\'est produite lors de l\'archivage de la demande.');
-                        }
-                    },
-                    error: function() {
-                        alert('Une erreur s\'est produite lors de l\'archivage de la demande.');
-                    }
-                });
-            });
-        });
-    </script>
-@endsection
-    </script>
-    <script>
-        function confirmDelete(id) {
-            if (confirm("Are you sure you want to delete this student?")) {
-                document.getElementById('delete-form-' + id).submit();
-            }
-        }
-    </script>
-@endsection
+</body>
+</html>

@@ -2,92 +2,28 @@
 @extends('etudiant.layouts.navbaretudiant')
 @section('contenu')
 <style>
-    #reclamation {
-        margin: 80px auto 50px;
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-        max-width: 500px; /* Réduit la largeur maximale */
-        
-        margin-left: auto;
-        margin-right: auto;
-    }
+   
 
-    @media (max-width: 320px) {
-        #reclamation {
-            padding: 15px;
-        }
-    }
-
-    @media (min-width: 375px) {
-        #reclamation {
-            max-width: 90%;
-        }
-    }
-
-    @media (min-width: 425px) {
-        #reclamation {
-            max-width: 90%;
-        }
-    }
-
-    @media (min-width: 768px) {
-        #reclamation {
-            max-width: 600px;
-        }
-    }
-
-    @media (min-width: 1920px) {
-        #reclamation {
-            max-width: 900px; /* Ajuste la largeur maximale pour les écrans plus grands */
-            margin-left: 20px;
-        }
-    }
-
-    @media (min-width: 1024px) {
-        #reclamation {
-            max-width: 900px;
-            margin-left: 100px;
-        }
-    }
-
-    @media (width: 2560px) {
-        #reclamation {
-            max-width: 1200px;
-            height: auto; /* Ajuste la hauteur automatiquement */
-            margin-left: auto;
-            margin-top: 100px;
-        }
-
-        .button-enregistrer {
-            margin-top: 20px;
-        }
-
-        form {
-            margin-top: 10px;
-            padding: 20px;
-        }
-    }
-
-    h6 {
-        color: #333333;
-        margin-bottom: 10px;
-        font-weight: 600;
-    }
+   .container{
+    background-color: #ffffff;
+    margin-top:20px;
+    border-radius: 9px;
+        /* Bordure pour l'effet de cadre */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.23);
+   }
 
     .form-control {
         border-radius: 5px;
         border: 1px solid #cccccc;
         padding: 10px;
-        margin-bottom: 15px;
+       
         font-size: 14px;
     }
 
     .button-enregistrer {
         width: 100%;
         padding: 10px;
-        background-color: #1858b1;
+        background-color: #173165;
         color: #ffffff;
         border: none;
         border-radius: 5px;
@@ -98,6 +34,7 @@
 
     .button-enregistrer:hover {
         background-color: #0d3d82;
+        color: #ffffff;
     }
 
     .file-upload-btn {
@@ -122,7 +59,7 @@
     }
 </style>
 
-<div id="reclamation" class="container" style="margin-left: 300px; ">
+<div id="reclamation" class="container">
     @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -162,7 +99,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h6>Description :</h6>
-                <textarea class="form-control" rows="5" name="description"></textarea>
+                <textarea class="form-control" rows="8" name="description"></textarea>
             </div>
         </div>
 

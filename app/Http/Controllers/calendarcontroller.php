@@ -10,6 +10,8 @@ use App\Models\Salle;
 use App\Models\Date;
 use App\Models\Heure_Fin;
 use App\Models\Heure_Debut;
+use App\Models\Etudians;
+use DataTables;
 class calendarcontroller extends Controller
 {
     public function index()
@@ -25,8 +27,24 @@ class calendarcontroller extends Controller
 }
 public function indexx()
 {
-    return view('scolarite.table');
+    return view('scolarite.views.table');
 }
+
+// app/Http/Controllers/EtudiantController.php
+
+
+
+
+   
+
+    
+
+
+
+
+
+
+
 
 public function saveEvent(Request $request)
 {
@@ -70,8 +88,8 @@ public function getEvents()
                         'title' => optional($event->element)->intitule,
                         'start' => optional($event->date)->date . 'T' . optional($event->heureDebut)->heure_debut,
                         'end' => optional($event->date)->date . 'T' . optional($event->heureFin)->heure_fin,
-                        'backgroundColor' => '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT), // Random background color
-                        'borderColor' => '#000', // Border color
+                        'backgroundColor' => '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT), 
+                        'borderColor' => '#000',
                     ];
                 });
 

@@ -26,6 +26,7 @@ class ExamNotificationController extends Controller
         $request->validate([
             'id_element' => 'required|exists:element,id_element',
             'id_filiere' => 'required|exists:filiere,id_filiere',
+            'code_postal' => 'required|exists:etablissement,code_postal',
             'date_exam' => 'required',
             'heure_exam' => 'required',
         ]);
@@ -33,6 +34,7 @@ class ExamNotificationController extends Controller
         Programme_Evaluation::create([
             'id_element' => $request->id_element,
             'id_filiere' => $request->id_filiere,
+            'code_postal' => $request->code_postal,
             'date_exam' => $request->date_exam,
             'heure_exam' => $request->heure_exam,
         ]);

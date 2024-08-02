@@ -27,7 +27,7 @@ class EmploiscolariteController extends Controller
             
             'id_filiere' => 'required|exists:filiere,id_filiere',
             'emploi_pdf' => 'required|file|mimes:pdf|max:2048',
-            'id_semestre' => 'required|exists:semestre,id_semestre',
+           
             'code_postal' => 'required|exists:etablissement,code_postal',
         ]);
 
@@ -35,7 +35,7 @@ class EmploiscolariteController extends Controller
         $emploi = new Emploi();
        
         $emploi->id_filiere = $validatedData['id_filiere'];
-        $emploi->id_semestre = $validatedData['id_semestre'];
+       
         $emploi->code_postal = $validatedData['code_postal'];
 
         // Vérification et traitement du fichier PDF téléchargé

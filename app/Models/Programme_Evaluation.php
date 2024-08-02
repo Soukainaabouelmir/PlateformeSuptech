@@ -11,6 +11,7 @@ class Programme_Evaluation extends Model
     protected $fillable = [
        
         'id_element',
+        'code_postal',
         'id_filiere',
         'heure_exam',
         'date_exam',
@@ -20,6 +21,10 @@ class Programme_Evaluation extends Model
     public function element()
     {
         return $this->belongsTo(Element::class, 'id_element', 'id_element');
+    }
+    public function etablissment()
+    {
+        return $this->belongsTo(Etablissment::class, 'code_postal', 'code_postal');
     }
 
     public function filiere()

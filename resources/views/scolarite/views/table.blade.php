@@ -42,22 +42,20 @@
     <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
         <div class="nano">
             <div class="nano-content">
-                <div class="logo"> <a class="navbar-brand" href=""><img class="m-0 p-0 img-logo" src="{{ asset('asset/images/logo.webp') }}" alt="suptech logo" width="70%" style="margin-left: 10px;"></div>
+                <div class="logo"> <a class="navbar-brand" href="https://www.suptech-sante.ma/fr"><img class="m-0 p-0 img-logo" src="{{ asset('asset/images/logo.webp') }}" alt="suptech logo" width="70%" style="margin-left: 10px;"></div>
                 <ul>
                     
                    
                    
-                    <li><a href="{{ route('listetudiant') }}"><i class="ti-view-list-alt"></i> Liste étudiants </a></li>
-                    <li><a href="{{ route('demandescolarite') }}"><i class="ti-files"></i>  Demandes étudiants</a></li>
-
-                    
-                    <li><a href="{{ route('paiementscolarite') }}"><i class="ti-user"></i> Paiement étudiants</a></li>
-                    <li><a href="{{ route('reclamationscolarite') }}"><i class="ti-layout-grid2-alt"></i> Réclamations étudiants</a></li>
+                    <li><a href="app-event-calender.html"><i class="ti-view-list-alt"></i> Liste étudiants </a></li>
+                    <li><a href="app-email.html"><i class="ti-files"></i>  Demandes étudiants</a></li>
+                    <li><a href="app-profile.html"><i class="ti-user"></i> Paiement étudiants</a></li>
+                    <li><a href="app-widget-card.html"><i class="ti-layout-grid2-alt"></i> Réclamations étudiants</a></li>
                    
-                    <li><a href="{{ route('scolarite.views.emploi') }}"><i class="ti-calendar"></i> Emploi du Temps </a>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-calendar"></i> Emploi du Temps </a>
                        
                     </li>
-                    <li><a href="{{ route('scolarite.views.notificationsexam') }}"><i class="ti-email"></i> Notifications Exams </a>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-email"></i> Notifications Exams </a>
                        
                     </li>
                     <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Absence étudiants </a>
@@ -70,7 +68,7 @@
                     
                    
                    
-                    
+                    <li><a href="#"><i class="ti-close"></i> Déconnecter</a></li>
                 </ul>
             </div>
         </div>
@@ -103,15 +101,6 @@
                                 @endif
                                 <i class="ti-user" style="color:#173165;" ></i>
                             </li>
-                        </div>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="ti-close"></i>Déconnecter
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -147,20 +136,19 @@
                         <div class="card">
                             <div class="bootstrap-data-table-panel">
                                 <div class="table-responsive">
-                                    <table id="reclamation-table" class="table table-striped table-bordered">
+                                    <table id="etudiants-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Apogee</th>
+                                               
+                                                <th>CNE</th>
+                                                <th>CNI</th>
                                                 <th>Nom</th>
                                                 <th>Prénom</th>
                                                 <th>Téléphone</th>
                                                 <th>Email</th>
-                                                <th>Type réclamations</th>
-                                                <th>Description</th>
-                                                <th>image</th>
-                                               
-                                               
-                                                
+                                                <th>Adresse</th>
+                                                <th>Sexe</th>
+                                                <th>Date Naissance</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -169,7 +157,7 @@
                                 </div>
                             </div>
                         </div>
-                      
+                        <!-- /# card -->
                     </div>
                     <!-- /# column -->
                 </div>
@@ -208,73 +196,60 @@
 
 <script>
     $(document).ready(function() {
-    $('#reclamation-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: "{{ route('reclamation.data') }}",
-            type: "GET",
-        },
-        columns: [
-            { data: 'apogee', name: 'apogee' },
-            { data: 'etudiant_nom', name: 'etudient.Nom' },
-            { data: 'etudiant_prenom', name: 'etudient.Prenom' },
-            { data: 'etudiant_email', name: 'etudient.Email' },
-            { data: 'etudiant_telephone', name: 'etudient.telephone' },
-            { data: 'type_reclamation', name: 'type_reclamation' },
-            { data: 'description', name: 'description' },
-            { data: 'file_reclamation', name: 'file_reclamation', orderable: false, searchable: false }
-        ],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'copy',
-                exportOptions: {
-                    columns: ':visible'
-                }
+        $('#etudiants-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": "{{ route('etudiants.data') }}",
+                "type": "GET",
             },
-            {
-                extend: 'csv',
-                exportOptions: {
-                    columns: ':visible'
+            columns: [
+                { data: 'CNE', name: 'CNE' },
+                { data: 'CNI', name: 'CNI' },
+                { data: 'Nom', name: 'Nom' },
+                { data: 'Prenom', name: 'Prenom' },
+                { data: 'telephone', name: 'telephone' },
+                { data: 'Email', name: 'Email' },
+                { data: 'Adresse', name: 'Adresse' },
+                { data: 'Sexe', name: 'Sexe' },
+                { data: 'Date_naissance', name: 'Date_naissance' },
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
                 }
-            },
-            {
-                extend: 'excel',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'pdf',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            }
-        ]
-    });
-});
-</script>
-
-
-<script>
-      
-    var userButton = document.querySelector('.dropdown-toggle');
-
-    
-    var userDropdownMenu = document.querySelector('#userDropdownMenu');
-
-    
-    userButton.addEventListener('click', function() {
-        
-        userDropdownMenu.classList.toggle('show');
+            ]
+        });
     });
 </script>
+
 </body>
 </html>

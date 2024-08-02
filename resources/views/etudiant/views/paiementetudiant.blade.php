@@ -74,7 +74,15 @@
 #historique-paiement-content{
     display: none;
 }
-        /* Style pour les boutons cochés avec la couleur de fond verte */
+.content{
+   
+    border: 2px ;
+       padding: 5px;
+       
+     height: auto;
+     width: auto;
+}
+        
     </style>
 
 
@@ -85,8 +93,8 @@
 
 
 
-    <div id="informations-paiement-content" class="content" style="margin-left: -20px; margin-top:50px; overflow: hidden;">
-        <div class="content" style="margin-left: 300px; margin-top:20px; overflow: hidden;">
+    <div id="informations-paiement-content" class="content" style="margin-top: 30px;">
+        <div class="content">
             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
@@ -97,7 +105,7 @@
                     <li class="alert alert-danger">{{ $error }}</li>
                 @endforeach
             </ul>
-            <fieldset class="border p-4">
+            
                 <legend class="w-auto" style="font-size: 16px; color:#173165"><strong> Informations Paiement</strong>
                 </legend>
                 <form id="informations-personnelles" action="{{ route('enpaiement') }}" method="POST"
@@ -317,7 +325,7 @@
 
                   
                 </form>
-            </fieldset>
+           
         </div>
     </div>
     </div>
