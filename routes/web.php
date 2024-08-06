@@ -107,14 +107,15 @@ Route::middleware(['is_scolarite'])->group(function () {
     Route::post('/demande/{id}', [DemandeScolariteController::class, 'destroy'])->name('demandes.destroy');
     Route::get('demadnescolariteetudiants', [DemandeScolariteController::class, 'demandeEtudiants'])->name('getDataDemande');
     Route::get('/calendar', [calendarcontroller::class, 'index'])->name('calendar');
-    
+    Route::put('/etudiants/{id}', [ListetudiantController::class, 'update'])->name('etudiants.update');
     Route::get('/save-calendar', [calendarcontroller::class, 'getEvents'])->name('getEvent');
     Route::post('/save-calendar', [calendarcontroller::class, 'saveEvent'])->name('storeEvent');
-    
+    Route::delete('/etudiants/{id}', [ListetudiantController::class, 'destroy'])->name('etudiants.destroy');
+    Route::get('/etudiants/export', [ListetudiantController::class, 'export'])->name('etudiants.export');
     Route::get('/etudiant/data', [ListetudiantController::class, 'fetchEtudiantss'])->name('etudiants.data');
     // web.php (routes)
-Route::get('/etudiants/{id}/edit', [ListetudiantController::class, 'edit']);
-Route::get('/etudiants/{id}', [ListetudiantController::class, 'destroy']);
+
+
 
 });
 
@@ -235,7 +236,7 @@ Route::get('/getPaidMonths', [PaiementetudiantController::class, 'getPaidMonths'
 Route::get('/fetch-etudiants', [AjouteNoteController::class, 'indexx'])->name('fetch.etudiants');
 Route::get('/fetch', [AjouteNoteController::class, 'index'])->name('fetch');
 
-Route::post('update-etudiant', [ListetudiantController::class, 'update'])->name('update-etudiant');
+
 
 Route::delete('/etudiants/{id}', [ListetudiantController::class, 'destroy'])->name('etudiants.destroy');
 

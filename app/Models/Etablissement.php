@@ -29,5 +29,8 @@ class Etablissement extends Model
     {
         return $this->hasMany(Programme_Evaluation::class, 'code_postal', 'code_postal');
     }
-
+    public function emploi()
+    {
+        return $this->hasMany(Emploi::class, 'code_postal', 'code_postal');
+    }
 }

@@ -21,6 +21,10 @@ class Emploi extends Model
     {
         return $this->belongsTo(Filiere::class, 'id_filiere');
     }
+    public function etablissement()
+    {
+        return $this->belongsTo(Etablissement::class, 'code_postal');
+    }
     public function Semestre()
     {
         return $this->belongsTo(semestre::class, 'id_semestre');

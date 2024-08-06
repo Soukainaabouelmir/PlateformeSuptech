@@ -73,7 +73,7 @@
     <form action="{{route('enreclamation') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" id="gh" name="apogee" value="{{ $user->apogee ?? '' }}">
-
+       
         <div class="row">
             <div class="col-md-6">
                 <h6>Nom</h6>
@@ -86,7 +86,21 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <h6>Filière</h6>
+                <select class="form-control" id="filiere" name="id_filiere" required>
+                    <option value="" disabled selected></option>
+                    <option value="2">Génie Industriel et Logistique Hospitalière</option>
+                    <option value="1">Classes Préparatoires</option>
+                    <option value="3">Sciences de Gestion en Milieu Hospitalier et Industrie Médicale</option>
+                    <option value="4">Génie Digital et Intélligence Artificielle en santé</option>
+                    <option value="5">Dispositifs Médicaux et affaires Réglementaires</option>
+                    <option value="6">Génie Biomédical</option>
+                    <option value="7">Maintenance Médicale</option>
+                    <option value="8">Entrepreneuriat et Management Technologique</option>
+                </select>
+            </div>
+            <div class="col-md-6">
                 <h6>Type de réclamation :</h6>
                 <select class="form-control" name="type_reclamation" required>
                     <option value="Réclamation d'internat">Réclamation d'internat</option>

@@ -155,6 +155,7 @@
                                                 <th>Prénom</th>
                                                 <th>Téléphone</th>
                                                 <th>Email</th>
+                                                <th>Filiére</th>
                                                 <th>Montant</th>
                                                 <th>Date paiement</th>
                                                 <th>mois</th>
@@ -221,8 +222,10 @@
             { data: 'apogee', name: 'apogee' },
             { data: 'etudiant_nom', name: 'etudient.Nom' },
             { data: 'etudiant_prenom', name: 'etudient.Prenom' },
-            { data: 'etudiant_email', name: 'etudient.Email' },
             { data: 'etudiant_telephone', name: 'etudient.telephone' },
+            { data: 'etudiant_email', name: 'etudient.Email' },
+            { data: 'filiere_intitule', name: 'filiere.intitule' },
+           
             { data: 'date_paiement', name: 'date_paiement' },
             { data: 'mois_concerne', name: 'mois_concerne' },
             { data: 'montant', name: 'montant' },

@@ -106,7 +106,7 @@ class DemandeScolariteController extends Controller
         $demande = Demande::where('apogee', $apogee)->firstOrFail();
         
         // Marquer la demande comme validée
-        $demande->status = true;
+        $demande->status = 'validé';
         $demande->message = true; // Indiquer que la notification a été envoyée
         $demande->save();
 

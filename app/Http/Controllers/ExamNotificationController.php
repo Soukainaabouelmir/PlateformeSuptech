@@ -7,6 +7,7 @@ use App\Models\Element;
 use App\Models\Filiere;
 use App\Models\Programme_Evaluation;
 use App\Models\Inscription;
+use App\Models\Etudians;
 use Illuminate\Support\Facades\Auth;
 
 class ExamNotificationController extends Controller
@@ -43,16 +44,53 @@ class ExamNotificationController extends Controller
         return redirect()->route('scolarite.views.notificationsexam')->with('success', 'Notification envoyée avec succès.');
     }
 
+    
+   
+    
+
     public function studentExams()
-    {
-        $studentId = Auth::guard('etudient')->id();
+{
+    // Récupérer l'apogee de l'étudiant connecté
+    $studentApogee = Auth::guard('etudient')->user()->apogee;
 
-        
-        $filieres = Inscription::where('apogee', $studentId)->pluck('id_filiere');
-      
-        // Récupérer les examens associés à ces filières
-        $exams = Programme_Evaluation::whereIn('id_filiere', $filieres)->get();
-
-        return view('etudiant.views.exametudiant', compact('exams'));
+    
+    if (!$studentApogee) {
+        return redirect()->route('login')->with('error', 'Vous devez être connecté pour accéder à cette page.');
     }
+
+    \Log::info('Apogee de l\'étudiant : ' . $studentApogee);
+
+    // Récupérer l'inscription de l'étudiant
+    $inscription = Inscription::where('apogee', $studentApogee)->first();
+   $etudiant = Etudians::where('apogee', $studentApogee)->first();
+    
+    if (!$inscription) {
+        \Log::error('Aucune inscription trouvée pour l\'apogee : ' . $studentApogee);
+        return redirect()->route('home')->with('error', 'Aucune inscription trouvée.');
+    }
+    if (!$etudiant) {
+        \Log::error('Aucune inscription trouvée pour l\'apogee : ' . $studentApogee);
+        return redirect()->route('home')->with('error', 'Aucune inscription trouvée.');
+    }
+    $idFiliere = $inscription->id_filiere;
+    $codepostal = $etudiant->code_postal;
+    
+    
+    
+   
+    \Log::info('Filière de l\'étudiant : ' . $idFiliere);
+    \Log::info('Code établissement de l\'étudiant : ' . $codepostal);
+    
+    // Récupérer les emplois du temps pour la filière, l'établissement et le groupe de l'étudiant
+    $exams = Programme_Evaluation::where('id_filiere', $idFiliere)
+                     ->where('code_postal', $codepostal)
+                     ->get();
+
+    // Utiliser dd() pour vérifier les données récupérées
+   
+
+    \Log::info('Emplois récupérés : ' . json_encode($exams));
+
+    return view('etudiant.views.exametudiant', compact('exams'));
+}
 }

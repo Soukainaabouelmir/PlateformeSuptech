@@ -45,11 +45,23 @@ tr{
 
        
 
-
+.content{
+    background-color: #ffffff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2), 0 3px 3px rgba(0, 0, 0, 0.23); /* Ombre pour effet 3D */
+     
+        width: auto;
+        margin-left: auto;
+       
+        margin-right: auto;
+}
 
        
 
-       
+       p{
+        font-size: 21px;
+        font-weight: 700;
+        color: #173165;
+       }
 
         .suptech_sante_radio {
             margin-left: 0px;
@@ -65,7 +77,7 @@ tr{
             }
         }
         .form-control:disabled, .form-control[readonly] {
-    background-color: #ffffff;
+    background-color: #ece8e8;
    
 }
         
@@ -76,332 +88,280 @@ tr{
 
 
    
-    <div>
-    <div>
-        <div class="content">
-            <button id="boutonInformations">Informations étudiant</button>
-            <button id="boutonCursus">Cursus</button>
-            
-        </div>
-        
-    </div></div>
-    <form>
+    
     
        
 
   
 
-    <!-- Formulaire pour Etablissement -->
-    <div class="content">
-        <div class="etablissment-content" style="margin-left: -20px;">
-            <fieldset class="border p-3">
-                <legend class="w-auto" style="font-size: 16px; color:#173165"><strong>Etablissment</strong></legend>
-                <form id="etablissment">
-                    
-                    
-                        
-                        
-                        
-                    
-                </form>
-            </fieldset>
-        </div>
-    </div>
-
+ 
    
-    <div id="identifiants-etudiant-content" class="content">
-        <div class="content" >
-            <fieldset class="border p-3">
-                <legend class="w-auto" style="font-size: 16px; color:#173165"><strong> Identifiants étudiant</strong>
-                </legend>
-
-                <form id="identifiants_etudiant" action="" method="" >
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="id_etudiant" class="form-label"><strong>Code Apogee :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="id_etudiant" name="apogee" value="{{ $user->apogee ?? '' }}"readonly>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="Code_National" class="form-label"><strong>Code National de l'Etudiant(CNE)
-                                 :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="Code_National" name="Cne"
-                                    value="{{ $user->CNE ?? '' }}" readonly>
-                                    <div class="invalid-feedback">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="cycle" class="form-label"><strong>Cycle :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="cycle" name="Cycle"  readonly>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="date_inscription" class="form-label"><strong>Date d'inscription
-                                            :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                   
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="cycle" class="form-label"><strong>Filiere :</strong></label>
-                                </div>
-                                
-                            </div>
-                        </div>
-                       </div>
-                </form>
-            </fieldset>
-        </div>
-    </div>
+   
+    
 
 
-
-    <!-- Formulaire pour Renseignements étudiant ou personnels-->
-    <div id="renseignements-etudiant-content" class="content"
-       >
-        <div class="content">
-            <fieldset class="border p-3">
-                <legend class="w-auto" style="font-size: 16px; color:#173165"><strong> Renseignements étudiant</strong>
-                </legend>
-                <form id="renseignements_etudiant">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="nom" class="form-label"><strong>Nom :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="nom" name="Nom" value="{{ $user->Nom ?? '' }}" readonly>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="prenom" class="form-label"><strong>Prénom :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="prenom" name="Prenom" value="{{ $user->Prenom ?? '' }}" readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="date_naissance" class="form-label"><strong>Date de naissance
-                                            :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="date_naissance" name="Date_naissance" value="{{ $user->Date_naissance ?? '' }}"
-                                    readonly>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="sexe" class="form-label"><strong>Sexe :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <select class="form-select" id="sexe" name="Sexe" required disabled>
-                                        <option value="" disabled selected></option>
-                                        <option value="M" {{ $user->Sexe == 'M' ? 'selected' : '' }}>M</option>
-                                        <option value="F" {{ $user->Sexe == 'F' ? 'selected' : '' }}>F</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="lieu_naissance" class="form-label"><strong>Lieu de naissance
-                                            :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="lieu_naissance" name="Lieu_naissance"
-                                    readonly>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="cin" class="form-label"><strong>CNI /N° Passeport (Pour les étrangers)
-                                        :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="cin" name="Cni" value="{{ $user->CNI ?? '' }}" readonly>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="row mt-3">
-                       
-
-
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="adresse" class="form-label"><strong>Adresse :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="adresse" name="Adresse" value="{{ $user->Adresse ?? '' }}" readonly>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="Pays" class="form-label"><strong>Pays:</strong></label>
-                                </div>
-                               
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="telephone" class="form-label"><strong>Téléphone :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="tele" name="Telephone" value="{{ $user->telephone ?? '' }}" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="email" class="form-label"><strong>E-mail :</strong></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="email" name="Email" value="{{ $user->Email ?? '' }}" readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
-                              
-                        </div>
-                    </div>
-
-
-                </form>
-            </fieldset>
-        </div>
-    </div>
+               
 
 
     <!-- Formulaire pour les informations parents-->
 
+   
+   
 
-    <div id="informations-parents-content" class="content"
-        >
-        <div class="content">
-            <fieldset class="border p-3">
-                <legend class="w-auto" style="font-size: 16px; color:#173165"><strong> Informations Tuteur</strong>
-                </legend>
-                <form id="informations-parents">
-                    @if ($tuteur->isNotEmpty())
-                        @foreach($tuteur as $index => $tuteur)
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="tuteur_nom_{{ $index }}" class="form-label"><strong>Nom Tuteur :</strong></label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" id="tuteur_nom_{{ $index }}" name="tuteur_nom_{{ $index }}" value="{{ $tuteur->nom }}" readonly>
-                                        </div>
+    
+
+    
+    <div id="identifiants-etudiant-content" class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-title">
+                    <p>Identifiants étudiant</p>
+                    
+                </div>
+                <div class="card-body">
+                    <div class="basic-elements">
+                        <form>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Code Apogee</label>
+                                        <input type="text" class="form-control" id="id_etudiant" name="apogee" value="{{ $user->apogee ?? '' }}"readonly>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Cycle</label>
+                                        <input type="text" class="form-control" id="cycle" name="Cycle"  readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Code National de l'Etudiant(CNE)
+                                            :</label>
+                                            <input type="text" class="form-control" id="Code_National" name="Cne"
+                                            value="{{ $user->CNE ?? '' }}" readonly>
+                                    </div>
+                                   
+                                    
+
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="tel1_{{ $index }}" class="form-label"><strong>N° Téléphone :</strong></label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" id="tel1_{{ $index }}" name="tel1_{{ $index }}" value="{{ $tuteur->tel1 }}" readonly>
-                                        </div>
+                                <div class="col-lg-6"> @if ($inscriptions->isNotEmpty())
+                                    @foreach($inscriptions as $index => $inscriptions)
+                                    <div class="form-group">
+                                        <label for="inscriptions_num_annee_{{ $index }}">Date Inscription</label>
+                                        <input class="form-control" type="text" id="inscriptions_num_annee_{{ $index }}" name="inscriptions_num_annee_{{ $index }}" value="{{ $inscriptions->num_annee }}" readonly>
+                                    </div>@endforeach
+                                    @else
+                                        <p>Aucun tuteur associé.</p>
+                                    @endif
+                                    @if ($filiere->isNotEmpty())
+                                    @foreach($filiere as $index => $filiere)
+                                    <div class="form-group">
+                                        <label for="filiere_intitule_{{ $index }}">Filiére</label>
+                                        <input class="form-control" type="text" id="filiere_intitule_{{ $index }}" name="filiere_intitule_{{ $index }}" value="{{ $filiere->intitule }}" readonly>
+                                    </div> @endforeach
+                                    @else
+                                        <p>Aucun tuteur associé.</p>
+                                    @endif
+                                    @if ($etablissement->isNotEmpty())
+                                    @foreach($etablissement as $index => $etablissement)
+                                    <div class="form-group">
+                                        <label for="etablissement_ville_{{ $index }}">Etablissement</label>
+                                        <input class="form-control" type="text" id="etablissement_ville_{{ $index }}" name="etablissement_ville_{{ $index }}" value="{{ $etablissement->ville }}" readonly>
+                                        
                                     </div>
+                                   
+                                    @endforeach
+                                    @else
+                                        <p>Aucun tuteur associé.</p>
+                                    @endif
                                 </div>
                             </div>
-            
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="profession_{{ $index }}" class="form-label"><strong>Profession Tuteur :</strong></label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" id="profession_{{ $index }}" name="profession_{{ $index }}" value="{{ $tuteur->profession }}" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="adresse_{{ $index }}" class="form-label"><strong>Adresse :</strong></label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" id="adresse_{{ $index }}" name="adresse_{{ $index }}" value="{{ $tuteur->adresse }}" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    @else
-                        <p>Aucun tuteur associé.</p>
-                    @endif
-                </form>
-            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- /# column -->
+        
+        <!-- /# column -->
     </div>
-
-    
-
-    
-
+    <!-- /# row -->
                         
-  
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-title">
+                    <p>Renseignements étudiant</p>
+                    
+                </div>
+                <div class="card-body">
+                    <div class="basic-elements">
+                        <form>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Nom</label>
+                                        <input type="text" class="form-control" id="nom" name="Nom" value="{{ $user->Nom ?? '' }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date Naissance</label>
+                                        <input type="text" class="form-control" id="nom" name="Nom" value="{{ $user->Date_naissance ?? '' }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Lieu de Naissance</label>
+                                        <input class="form-control" type="text" value="" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Adresse</label>
+                                        <input type="text" class="form-control" id="nom" name="Nom" value="{{ $user->Adresse ?? '' }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Téléphone</label>
+                                        <input type="text" class="form-control" id="nom" name="Nom" value="{{ $user->telephone ?? '' }}" readonly>
+                                    </div>
 
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Prénom</label>
+                                        <input type="text" class="form-control" id="nom" name="Nom" value="{{ $user->Prenom ?? '' }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sexe</label>
+                                        <input type="text" class="form-control" id="nom" name="Nom" value="{{ $user->Sexe ?? '' }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>CNI /N° Passeport (Pour les étrangers)
+                                            :</label>
+                                            <input type="text" class="form-control" id="nom" name="Nom" value="{{ $user->CNI ?? '' }}" readonly>
+                                       
+                                    </div>  @if ($pays->isNotEmpty())
+                                    @foreach($pays as $index => $pays)
+                                    <div class="form-group">
+                                        <label for="pays_pays_{{ $index }}">Pays</label>
+                                        <input type="text" class="form-control" id="pays_pays_{{ $index }}" name="pays_pays_{{ $index }}" value="{{ $pays->pays }}"  readonly>
+                                       
+                                    </div> @endforeach
+                                    @else
+                                        <p>Aucun tuteur associé.</p>
+                                    @endif
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" class="form-control" id="nom" name="Nom" value="{{ $user->Email ?? '' }}" readonly>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+        
+                            
+               
+        <!-- /# column -->
+    </div>
+    <!-- /# row -->
+
+    <div id="identifiants-etudiant-content" class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-title">
+                    <p>Informations Tuteur</p>
+                    
+                </div>
+                <div class="card-body">
+                    <div class="basic-elements">
+                        <form>
+                            @if ($tuteur->isNotEmpty())
+                            @foreach($tuteur as $index => $tuteur)
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="tuteur_nom_{{ $index }}">Nom Tuteur</label>
+                                        <input type="text" class="form-control" id="tuteur_nom_{{ $index }}" name="tuteur_nom_{{ $index }}" value="{{ $tuteur->nom }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profession_{{ $index }}">Profession Tuteur</label>
+                                        <input type="text" class="form-control" id="profession_{{ $index }}" name="profession_{{ $index }}" value="{{ $tuteur->profession }}" readonly>
+                                    </div>
+                                   
+                                   
+                                    
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="tel1_{{ $index }}">Téléphone Tuteur</label>
+                                        <input type="text" class="form-control" id="tel1_{{ $index }}" name="tel1_{{ $index }}" value="{{ $tuteur->tel1 }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="adresse_{{ $index }}">Adresse Tuteur</label>
+                                        <input type="text" class="form-control" id="adresse_{{ $index }}" name="adresse_{{ $index }}" value="{{ $tuteur->adresse }}" readonly>
+                                    </div>
+                                  
+                                   
+                                    
+                                </div>
+                            </div>
+                            @endforeach
+                            @else
+                                <p>Aucun tuteur associé.</p>
+                            @endif
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+        
+        <!-- /# column -->
+    </div>
+    <!--<div id="identifiants-etudiant-content" class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-title">
+                    <p>Informations Baccalaureat</p>
+                    
+                </div>
+                <div class="card-body">
+                    <div class="basic-elements">
+                        <form>
+                           
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Série Bac</label>
+                                        <input type="text" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label >Mention Bac</label>
+                                        <input type="text" class="form-control" readonly>
+                                    </div>
+                                   
+                                   
+                                    
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label >Etablissement Bac</label>
+                                        <input type="text" class="form-control" readonly>
+                                    </div>
+                                   
+                                  
+                                   
+                                    
+                                </div>
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+    </div>
+-->
     
 
 

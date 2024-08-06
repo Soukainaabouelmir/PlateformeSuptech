@@ -9,6 +9,7 @@ use App\Models\Tuteur_Etudiant;
 use App\Models\Tuteur;
 use App\Models\Bourse;
 use App\Models\Diplome;
+use App\Models\Pays;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -55,17 +56,31 @@ public function index()
         'diplome'
          // Charger les bourses associées
     ])->find($apogee);
-
+    
     // Obtenez les tuteurs associés
     $tuteur = Tuteur::join('tuteur_etudiant', 'tuteur.id_tuteur', '=', 'tuteur_etudiant.id_tuteur')
         ->where('tuteur_etudiant.apogee', $apogee)
         ->get();
+        $filiere = Inscription::join('filiere', 'inscriptions.id_filiere', '=', 'filiere.id_filiere')
+        ->where('inscriptions.apogee', $apogee)
+        ->get();
+        $pays = Pays::join('etudient', 'pays.id_pays', '=', 'etudient.id_pays')
+        ->where('etudient.apogee', $apogee)
+        ->get(['pays.*']);
 
+        $etablissement = Etablissement::join('etudient', 'etablissement.code_postal', '=', 'etudient.code_postal')
+        ->where('etudient.apogee', $apogee)
+        ->get(['etablissement.*']);
+
+        $inscriptions = Inscription::join('etudient', 'inscriptions.apogee', '=', 'etudient.apogee')
+        ->where('etudient.apogee', $apogee)
+        ->get();
+    
     // Déboguer les données
    
 
     // Retourner la vue avec les données
-    return view('etudiant.views.Profil_etudiant', compact('user', 'etudiant', 'tuteur'));
+    return view('etudiant.views.Profil_etudiant', compact('user','inscriptions', 'etudiant', 'tuteur','filiere','pays','etablissement'));
 }
 
 

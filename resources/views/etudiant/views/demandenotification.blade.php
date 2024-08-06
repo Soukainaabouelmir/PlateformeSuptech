@@ -25,21 +25,25 @@
    
     
 }
+
+
 </style>
 @section('contenu')
 
-<div class="container" style="margin-left: 250px; margin-top:100px; ">
-    <h2>Espace Étudiant</h2>
+<div class="container " style="margin-top:20px;">
+    
 
     @if($demandes->count() > 0)
+    
         <div class="alert alert-success" role="alert">
-            Voici vos demandes validées :
+            @foreach($demandes as $demande)
+            <li class="demande" style="color: black;">{{ $demande->etudient->Nom }} {{ $demande->etudient->Prenom }}</li> Voici vos demandes validées :
             <ul>
-                @foreach($demandes as $demande)
-                    <li class="demnde"> {{ $demande->Type }}</li>
-                @endforeach
+                
+                 <li class="demnde">{{ $demande->document->description }}</li>
+               
             </ul>
-           
+            @endforeach
         </div>
     @else
         <div class="alert alert-info" role="alert">

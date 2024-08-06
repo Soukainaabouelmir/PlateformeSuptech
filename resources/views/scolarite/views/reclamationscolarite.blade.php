@@ -153,6 +153,7 @@
                                                 <th>Apogee</th>
                                                 <th>Nom</th>
                                                 <th>Prénom</th>
+                                                <th>Filiére</th>
                                                 <th>Téléphone</th>
                                                 <th>Email</th>
                                                 <th>Type réclamations</th>
@@ -219,6 +220,7 @@
             { data: 'apogee', name: 'apogee' },
             { data: 'etudiant_nom', name: 'etudient.Nom' },
             { data: 'etudiant_prenom', name: 'etudient.Prenom' },
+            { data: 'filiere_intitule', name: 'filiere.intitule' },
             { data: 'etudiant_email', name: 'etudient.Email' },
             { data: 'etudiant_telephone', name: 'etudient.telephone' },
             { data: 'type_reclamation', name: 'type_reclamation' },

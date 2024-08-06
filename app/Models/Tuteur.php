@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tuteur extends Model
 {
+   
+    public $timestamps = false;
+
+   
     protected $table = 'tuteur';
     protected $primaryKey = 'id_tuteur';
     use HasFactory;

@@ -7,17 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('asset/images/logo_img.png') }}">
 
-    <!-- ================= Favicon ================== -->
-    <!-- Standard -->
-    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
-    <!-- Retina iPad Touch Icon-->
-    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
-    <!-- Retina iPhone Touch Icon-->
-    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
-    <!-- Standard iPad Touch Icon-->
-    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
-    <!-- Standard iPhone Touch Icon-->
-    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+    
 
     <!-- Styles -->
     <link href="{{ asset('asset/css/lib/font-awesome.min.css') }}" rel="stylesheet">
@@ -61,11 +51,12 @@
                 <ul>
                     <li><a href="{{ route('Profil_etudiant') }}"><i class="ti-user"></i> Mon Profil </a></li>
                     <li><a href="{{ route('etudiant.emplois') }}"> <i class="ti-calendar"></i> Emploi du Temps</a></li>
-                    <li><a href="{{ route('paiement') }}"> <i class="ti-money"></i>Paiement </a></li>
-                    <li><a href="{{ route('etudiant.views.exametudiant') }}"><i class="ti-layout-grid2-alt"></i> Mes Exams</a></li>
+                    <li><a href="{{ route('paiement') }}"> <i class="ti-credit-card"></i>Paiement </a></li>
+                    <li><a href="{{ route('etudiant.views.exametudiant') }}"><i class="ti-marker-alt"></i> Mes Exams</a></li>
                     <li><a href="{{ route('note') }}"><i class="ti-view-list-alt"></i> Notes </a></li>
                     <li><a href="{{ route('demande') }}"><i class="ti-files"></i> Mes Demandes </a></li>
-                    <li><a href="{{ route('reclamation') }}"><i class="ti-bell"></i> Mes Réclamations </a></li>
+                    <li><a href="{{ route('demandenotification') }}"><i class="ti-email"></i> Validation des demandes </a></li>
+                    <li><a href="{{ route('reclamation') }}"><i class="ti-alert"></i> Mes Réclamations </a></li>
                    
                 </ul>
             </div>

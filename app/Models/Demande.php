@@ -21,7 +21,7 @@ class Demande extends Model
 }
 public function document()
 {
-    return $this->belongsTo(Document::class, 'apogee', 'apogee');
+    return $this->belongsTo(Document::class, 'id_document', 'id_document');
 }
 }
 

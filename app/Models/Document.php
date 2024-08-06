@@ -11,8 +11,5 @@ class Document extends Model
     protected $fillable = [ 'id_document','description'];
 
     use HasFactory;
-    public function demandes()
-    {
-        return $this->hasMany(Demande::class, 'id_document', 'id_document');
-    }
+   
 }

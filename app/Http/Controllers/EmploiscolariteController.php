@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Emploi;
 use App\Models\Groupe;
 use App\Models\Filiere;
+use App\Models\Etudians;
 use App\Models\Etablissement;
 use App\Models\Inscription;
 
@@ -69,6 +70,7 @@ public function studentEmploi()
 {
     // Récupérer l'apogee de l'étudiant connecté
     $studentApogee = Auth::guard('etudient')->user()->apogee;
+
     
     if (!$studentApogee) {
         return redirect()->route('login')->with('error', 'Vous devez être connecté pour accéder à cette page.');
@@ -78,14 +80,21 @@ public function studentEmploi()
 
     // Récupérer l'inscription de l'étudiant
     $inscription = Inscription::where('apogee', $studentApogee)->first();
-   
+   $etudiant = Etudians::where('apogee', $studentApogee)->first();
+    
     if (!$inscription) {
         \Log::error('Aucune inscription trouvée pour l\'apogee : ' . $studentApogee);
         return redirect()->route('home')->with('error', 'Aucune inscription trouvée.');
     }
-
+    if (!$etudiant) {
+        \Log::error('Aucune inscription trouvée pour l\'apogee : ' . $studentApogee);
+        return redirect()->route('home')->with('error', 'Aucune inscription trouvée.');
+    }
     $idFiliere = $inscription->id_filiere;
-    $codepostal = $inscription->code_postal;
+    $codepostal = $etudiant->code_postal;
+    
+    
+    
    
     \Log::info('Filière de l\'étudiant : ' . $idFiliere);
     \Log::info('Code établissement de l\'étudiant : ' . $codepostal);
@@ -96,12 +105,13 @@ public function studentEmploi()
                      ->get();
 
     // Utiliser dd() pour vérifier les données récupérées
-    dd($emplois);
+   
 
     \Log::info('Emplois récupérés : ' . json_encode($emplois));
 
     return view('etudiant.views.emploietudiant', compact('emplois'));
 }
+
 
 
 

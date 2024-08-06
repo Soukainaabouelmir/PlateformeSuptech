@@ -28,7 +28,8 @@ class Etudians extends Authenticatable implements AuthenticatableContract
         'telephone',
         'Email',
         'Adresse',
-        
+        'code_postal',
+        'id_pays',
     ];
 
    
@@ -82,7 +83,9 @@ class Etudians extends Authenticatable implements AuthenticatableContract
 
     public function diplome()
     {
-        return $this->belongsToMany(Diplome::class, 'diplome_etudiant', 'apogee', 'id_diplome')
-                    ->withPivot('mention');
+        return $this->belongsToMany(Diplome::class, 'diplome_etudiant', 'apogee', 'id_diplome');
     }
+
+    
 }
+

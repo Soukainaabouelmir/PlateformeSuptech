@@ -28,11 +28,13 @@ class PaiementScolariteController extends Controller
             'etudient.Prenom as etudiant_prenom',
             'etudient.Email as etudiant_email',
             'etudient.telephone as etudiant_telephone',
+            'filiere.intitule as filiere_intitule',
             'mode_paiement.description as mode_paiement_description',
             'type_paiement.description as type_paiement_description'
         ])
         ->join('etudient', 'paiement.apogee', '=', 'etudient.apogee')
         ->join('mode_paiement', 'paiement.id_modepaiement', '=', 'mode_paiement.id_modepaiement')
+        ->join('filiere', 'paiement.id_filiere', '=', 'filiere.id_filiere')
         ->join('type_paiement', 'paiement.id_typepaiement', '=', 'type_paiement.id_typepaiement');
 
     // Log the SQL query

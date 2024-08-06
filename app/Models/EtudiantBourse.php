@@ -5,25 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tuteur_Etudiant extends Model
+class EtudiantBourse extends Model
 {
-    protected $table = 'tuteur_etudiant';
     use HasFactory;
-   
-    protected $primaryKey = ['apogee', 'id_tuteur'];
+    protected $table = 'etudient_bourse';
+    protected $primaryKey = ['id_bourse', 'apogee'];
     public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
-        'apogee', 'id_tuteur'
+        'id_bourse', 'apogee'
     ];
     public function etudiant()
     {
         return $this->belongsTo(Etudians::class, 'apogee', 'apogee');
     }
 
-    public function tuteur()
+    public function bourse()
     {
-        return $this->belongsTo(Tuteur::class, 'id_tuteur', 'id_tuteur');
+        return $this->belongsTo(Bourse::class, 'id_bourse', 'id_bourse');
     }
 }

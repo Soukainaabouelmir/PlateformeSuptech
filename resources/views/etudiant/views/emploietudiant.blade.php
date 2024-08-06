@@ -20,18 +20,9 @@
         }
     }
 
-    #pdfModal .modal-dialog {
-        max-width: 80%;
-        margin: 1.75rem auto;
-    }
-
-    #pdfModal iframe {
-        width: 100%;
-        height: 600px;
-    }
 </style>
 
-<div class="container" style="margin-left: 240px; margin-top:90px;">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
@@ -42,6 +33,7 @@
                             <thead>
                                 <tr>
                                     <th>Emploi</th>
+
                                 </tr>
                             </thead>
                             <tbody>

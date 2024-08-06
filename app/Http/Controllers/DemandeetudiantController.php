@@ -66,13 +66,16 @@ class DemandeetudiantController extends Controller
         // Récupérer l'étudiant authentifié
         $etudiant = Auth::guard('etudient')->user();
 
-        // Récupérer les demandes validées pour cet étudiant
+        // Récupérer les demandes validées pour cet étudiant en chargeant les documents associés
         $demandes = Demande::where('apogee', $etudiant->apogee)
-                            ->where('status', 'validé')
-                            ->get();
+                                   ->where('status', 'validé')
+                                   ->with('document')
+                                   ->with('etudient') // Charger la relation document
+                                   ->get();
 
         return view('etudiant.views.demandenotification', compact('demandes'));
     }
+    
 
     public function store(Request $request)
     {

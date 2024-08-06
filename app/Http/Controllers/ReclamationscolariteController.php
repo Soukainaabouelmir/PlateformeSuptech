@@ -26,10 +26,12 @@ class ReclamationscolariteController extends Controller
             'reclamations.file_reclamation',
             'etudient.Nom as etudiant_nom',
             'etudient.Prenom as etudiant_prenom',
+            'filiere.intitule as filiere_intitule',
             'etudient.Email as etudiant_email',
             'etudient.telephone as etudiant_telephone',
            
         ])
+        ->join('filiere', 'reclamations.id_filiere', '=', 'filiere.id_filiere')
         ->join('etudient', 'reclamations.apogee', '=', 'etudient.apogee');
        
     // Log the SQL query

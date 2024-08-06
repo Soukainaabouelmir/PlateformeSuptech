@@ -5,6 +5,8 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/png" href="{{ asset('asset/images/logo_img.png') }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,15 +16,7 @@
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
-    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
     
-    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
-    
-    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
-    
-    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
-    
-    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -59,14 +53,8 @@
             box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
         }
       
-        label{
-           font-weight: 600;
-            
-        }
-        h6{
-            color: #ffffff;
-            background-color: #173165;
-        }
+       
+        
 </style>
 <body>
 
@@ -152,7 +140,6 @@
 
 
 
-
 <div class="content-wrap">
     <div class="main">
         <div class="container-fluid">
@@ -162,241 +149,172 @@
                         <div class="card">
                             <div class="bootstrap-data-table-panel">
                                 <div class="table-responsive">
-                                    
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: #94969a; border:none;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
-                                          </svg>&nbsp;&nbsp;Ajouter 
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentModal">
+                                        Ajouter un étudiant
                                     </button>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 30px;">
-                                        <div class="modal-dialog modal-lg" role="document"> 
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Ajouter</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    @if (session('success'))
-                                                        <div class="alert alert-success">
-                                                            {{ session('success') }}
-                                                        </div>
-                                                    @endif
-                                    
-                                                    @if ($errors->any())
-                                                        <ul>
-                                                            @foreach ($errors->all() as $error)
-                                                                <li class="alert alert-danger">{{ $error }}</li>
-                                                            @endforeach
-                                                        </ul>
-                                                    @endif
-                                    
-                                                    <form action="{{ route('etudiants.store') }}" method="POST">
-                                                        @csrf
-                                    
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="Nom">Nom:</label>
-                                                                    <input type="text" name="Nom" class="form-control" placeholder="Nom" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="Prenom">Prénom:</label>
-                                                                    <input type="text" name="Prenom" class="form-control" placeholder="Prénom" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="CNE">Code Massar:</label>
-                                                                    <input type="text" name="CNE" class="form-control" placeholder="CNE" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="CNI">Code National:</label>
-                                                                    <input type="text" name="CNI" class="form-control" placeholder="CNI" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="Sexe">Sexe:</label>
-                                                                    <select class="form-control" id="Sexe" name="Sexe" required>
-                                                                        <option value="" disabled selected></option>
-                                                                        <option value="M">Masculin</option>
-                                                                        <option value="F">Féminin</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="Date_naissance">Date Naissance:</label>
-                                                                    <input type="date" name="Date_naissance" class="form-control" placeholder="Date de naissance" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="Pays">Pays:</label>
-                                                                    <input type="text" name="Pays" class="form-control" placeholder="Pays" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="Email">Email:</label>
-                                                                    <input type="email" name="Email" class="form-control" placeholder="Email" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="telephone">Téléphone:</label>
-                                                                    <input type="text" name="telephone" class="form-control" placeholder="Téléphone" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="Adresse">Adresse:</label>
-                                                                    <input type="text" name="Adresse" class="form-control" placeholder="Adresse" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="Serie_bac">Série Bac:</label>
-                                                                    <input type="text" name="Serie_bac" class="form-control" placeholder="Série bac" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="cinTuteur">CIN Tuteur:</label>
-                                                                    <input type="text" name="cinTuteur" class="form-control" placeholder="CIN tuteur" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                    
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="nom_tuteur">Nom Tuteur:</label>
-                                                                    <input type="text" name="nom_tuteur" class="form-control" placeholder="Nom tuteur" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="proffesion_tuteur">Profession Tuteur:</label>
-                                                                    <input type="text" name="proffesion_tuteur" class="form-control" placeholder="Profession tuteur" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="telephone_tuteur">Téléphone Tuteur:</label>
-                                                                    <input type="text" name="telephone_tuteur" class="form-control" placeholder="Téléphone tuteur" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="Specialite_diplome">Spécialité Diplôme:</label>
-                                                                    <input type="text" name="Specialite_diplome" class="form-control" placeholder="Spécialité diplôme">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="Mention_bac">Mention Bac:</label>
-                                                                    <input type="text" name="Mention_bac" class="form-control" placeholder="Mention bac" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="Etablissement_bac">Établissement Bac:</label>
-                                                                    <input type="text" name="Etablissement_bac" class="form-control" placeholder="Établissement bac" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="Pourcentage_bourse">Pourcentage Bourse:</label>
-                                                                    <select class="form-control" id="Pourcentage_bourse" name="Pourcentage_bourse" required>
-                                                                        <option value="" disabled selected></option>
-                                                                        <option value="0%">0%</option>
-                                                                        <option value="10%">10%</option>
-                                                                        <option value="20%">20%</option>
-                                                                        <option value="30%">30%</option>
-                                                                        <option value="40%">40%</option>
-                                                                        <option value="50%">50%</option>
-                                                                        <option value="60%">60%</option>
-                                                                        <option value="70%">70%</option>
-                                                                        <option value="80%">80%</option>
-                                                                        <option value="90%">90%</option>
-                                                                        <option value="100%">100%</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="num_annee">Date inscription:</label>
-                                                                    <input type="text" name="num_annee" class="form-control" placeholder="Numéro d'année" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                    
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="code_etab">Établissement:</label>
-                                                                    <select name="code_etab" id="etablissement" class="form-control">
-                                                                        <option value="">Sélectionner un établissement</option>
-                                                                        @foreach ($etablissements as $etablissement)
-                                                                            <option value="{{ $etablissement->code_etab }}">{{ $etablissement->ville }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="id_filiere">Filière:</label>
-                                                                    <select name="id_filiere" id="id_filiere" class="form-control">
-                                                                        <option value="">Sélectionner une filière</option>
-                                                                        @foreach ($filieres as $filiere)
-                                                                            <option value="{{ $filiere->id_filiere }}">{{ $filiere->intitule }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                    
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #173165;">Ajouter Étudiant</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
+
                                     <!-- Modal HTML -->
-                                    <div class="modal fade" id="exampleModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Modifier l'Étudiant</h5>
+                                                    <h5 class="modal-title" id="addStudentModalLabel">Ajouter un étudiant</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form id="formModifierEtudiant" action="{{ route('update-etudiant') }}" method="POST">
+                                                    <form action="{{ route('etudiants.store') }}" method="POST">
                                                         @csrf
-                                                        <input type="hidden" id="id" name="id" value="">
-                                                        <div class="form-row">
-                                                            <div class="form-group col-md-4">
-                                                                <label for="inputNom">Nom</label>
-                                                                <input type="text" class="form-control" id="inputNom" name="Nom">
+                                                        <div class="row">
+                                                            <div class="col-md-4">Nom
+                                                                <input class="form-control" type="text" name="Nom">
                                                             </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="inputPrenom">Prénom</label>
-                                                                <input type="text" class="form-control" id="inputPrenom" name="Prenom">
+                                                            <div class="col-md-4">Prénom
+                                                                <input class="form-control" type="text" name="Prenom">
                                                             </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="inputCNE">CNE</label>
-                                                                <input type="text" class="form-control" id="inputCNE" name="CNE">
+                                                            <div class="col-md-4">Date de naissance
+                                                                <input class="form-control" type="date" name="Date_naissance">
                                                             </div>
                                                         </div>
-                                                        <div class="form-row">
-                                                            <div class="form-group col-md-4">
-                                                                <label for="inputCNI">CNI</label>
-                                                                <input type="text" class="form-control" id="inputCNI" name="CNI">
+                                                        <div class="row">
+                                                            <div class="col-md-4">CNE
+                                                                <input class="form-control" type="text" name="CNE">
                                                             </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="inputDateNaissance">Date Naissance</label>
-                                                                <input type="date" class="form-control" id="inputDateNaissance" name="Date_naissance">
+                                                            <div class="col-md-4">CNI
+                                                                <input class="form-control" type="text" name="CNI">
                                                             </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="inputSexe">Sexe</label>
-                                                                <input type="text" class="form-control" id="inputSexe" name="Sexe">
+                                                            <div class="col-md-4">Téléphone
+                                                                <input class="form-control" type="text" name="telephone">
                                                             </div>
                                                         </div>
-                                                        <div class="form-row">
-                                                            <div class="form-group col-md-4">
-                                                                <label for="inputEmail">Email</label>
-                                                                <input type="email" class="form-control" id="inputEmail" name="Email">
+                                                        <div class="row">
+                                                            <div class="col-md-4">Email
+                                                                <input class="form-control" type="email" name="Email">
+                                                            </div>
+                                                            <div class="col-md-4">Adresse
+                                                                <input class="form-control" type="text" name="Adresse">
+                                                            </div>
+                                                            <div class="col-md-4">Sexe
+                                                                <select class="form-control" name="Sexe">
+                                                                    <option value="M">Masculin</option>
+                                                                    <option value="F">Féminin</option>
+                                                                </select>
                                                             </div>
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #173165;">Enregistrer les modifications</button>
+                                                        <div class="row">
+                                                            <div class="col-md-4">Filière
+                                                                <select class="form-control" id="filiere" name="id_filiere" required>
+                                                                    <option value="" disabled selected></option>
+                                                                    <option value="2">Génie Industriel et Logistique Hospitalière</option>
+                                                                    <option value="1">Classes Préparatoires</option>
+                                                                    <option value="3">Sciences de Gestion en Milieu Hospitalier et Industrie Médicale</option>
+                                                                    <option value="4">Génie Digital et Intélligence Artificielle en santé</option>
+                                                                    <option value="5">Dispositifs Médicaux et affaires Réglementaires</option>
+                                                                    <option value="6">Génie Biomédical</option>
+                                                                    <option value="7">Maintenance Médicale</option>
+                                                                    <option value="8">Entrepreneuriat et Management Technologique</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4">Semestre
+                                                                <select class="form-control" id="semestre" name="id_semestre">
+                                                                    <option value="1">S1</option>
+                                                                    <option value="2">S2</option>
+                                                                    <option value="3">S3</option>
+                                                                    <option value="4">S4</option>
+                                                                    <option value="5">S5</option>
+                                                                    <option value="6">S6</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4">Date inscriptions
+                                                                <input class="form-control" type="text" name="num_annee">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">Etablissement
+                                                                <select class="form-control" name="code_postal" required>
+                                                                    <option value="28630">MOHAMMEDIA</option>
+                                                                    <option value="44003">ESSAOUIRA</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4">Bourse
+                                                                <select class="form-control" id="Pourcentage_bourse" name="id_bourse" >
+                                                                    <option value="" disabled selected></option>
+                                                                    <option value="8">0%</option>
+                                                                    <option value="6">10%</option>
+                                                                    <option value="10">20%</option>
+                                                                    <option value="11">30%</option>
+                                                                    <option value="12">40%</option>
+                                                                    <option value="2">50%</option>
+                                                                    <option value="3">60%</option>
+                                                                    <option value="4">70%</option>
+                                                                    <option value="6">80%</option>
+                                                                    <option value="9">90%</option>
+                                                                    <option value="1">100%</option>
+                                                                </select> 
+                                                            </div>
+                                                            <div class="col-md-4">Pays
+                                                                <select class="form-control" id="id_pays" name="id_pays" required>
+                                                                    <option value="212">Maroc</option>
+                                                                    <option value="2">Autre</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">Série de Bac
+                                                                <select class="form-control"  id="input_16" name="serie_bac">
+
+                                                                    <option></option>
+                                                                    <option value="SCIENCES EXPERIMENTALES - PC">SCIENCES EXPERIMENTALES - PC </option>
+                                                                    <option value="SCIENCES EXPERIMENTALES - SVT">SCIENCES EXPERIMENTALES - SVT </option>
+                                                                    <option value="SCIENCES MATHEMATIQUES - A"> SCIENCES MATHEMATIQUES - A </option>
+                                                                    <option value="SCIENCES MATHEMATIQUES - B"> SCIENCES MATHEMATIQUES - B </option>
+                                                                    <option value="SCIENCES TECHNIQUE - GENIE MECANIQUE"> SCIENCES TECHNIQUE - GENIE MECANIQUE </option>
+                                                                    <option value="SCIENCES TECHNIQUE - GENIE ELECTRIQUE"> SCIENCES TECHNIQUE - GENIE ELECTRIQUE </option>
+                                                                    <option value="SCIENCES TECHNIQUE - GENIE CIVIL"> SCIENCES TECHNIQUE - GENIE CIVIL </option>
+                                                                    <option value="SCIENCES TECHNIQUE - GENIE CHIMIQUE"> SCIENCES TECHNIQUE - GENIE CHIMIQUE </option>
+                                                                    <option value="SCIENCES TECHNIQUE - GENIE AGRONOMIQUE"> SCIENCES TECHNIQUE - GENIE AGRONOMIQUE </option>
+                                                                    <option value="SCIENCES TECHNIQUE - GENIE ECONOMIQUE"> SCIENCES TECHNIQUE - GENIE ECONOMIQUE</option>
+                                                                
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4">Mention du Bac
+                                                                <select class="form-control" id="mention_bac" name="mention_bac" >
+                                                                    <option value="" disabled selected></option>
+                                                                    <option value="AB">Assez Bien</option>
+                                                                    <option value="P">Passable</option>
+                                                                    <option value="B">Bien</option>
+                                                                    <option value="TB">Très Bien</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4">Année du Bac
+                                                                <input class="form-control" type="text" name="annee_bac">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">Nom Tuteur
+                                                                <input class="form-control" type="text" name="nom">
+                                                            </div>
+                                                            <div class="col-md-4">Téléphone Tuteur
+                                                                <input class="form-control" type="text" name="tel1">
+                                                            </div>
+                                                            <div class="col-md-4">Adresse Tuteur
+                                                                <input class="form-control" type="text" name="adresse">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                            <button type="submit" class="btn btn-primary">Ajouter</button>
+                                                        </div>
                                                     </form>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
+                                    
+
+                                    <!-- Table HTML -->
                                     <table id="etudiants-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
@@ -413,6 +331,7 @@
                                                 <th>Date Naissance</th>
                                                 <th>Filiere</th>
                                                 <th>Etablissement</th>
+                                                <th>Taux de Bourse</th>
                                                 <th>Nom Tuteur</th>
                                                 <th>Téléphone Tuteur</th>
                                                 <th>Adresse Tuteur</th>
@@ -420,6 +339,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <!-- Table data will be populated here -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -431,6 +351,8 @@
         </div>
     </div>
 </div>
+
+    
 
 <!-- jquery vendor -->
 <script src="{{ asset('asset/js/lib/jquery.min.js') }}"></script>
@@ -453,126 +375,185 @@
 <script src="{{ asset('asset/js/lib/data-table/buttons.print.min.js') }}"></script>
 <script src="{{ asset('asset/js/lib/data-table/datatables-init.js') }}"></script>
 <script>
-$(document).ready(function() {
-    $('#etudiants-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            "url": "{{ route('etudiants.data') }}",
-            "type": "GET",
-        },
-        columns: [
-            { data: 'id', name: 'id' },
-            { data: 'apogee', name: 'apogee' },
-            { data: 'CNE', name: 'CNE' },
-            { data: 'CNI', name: 'CNI' },
-            { data: 'Nom', name: 'Nom' },
-            { data: 'Prenom', name: 'Prenom' },
-            { data: 'telephone', name: 'telephone' },
-            { data: 'Email', name: 'Email' },
-            { data: 'Adresse', name: 'Adresse' },
-            { data: 'Sexe', name: 'Sexe' },
-            { data: 'Date_naissance', name: 'Date_naissance' },
-            { data: 'filiere', name: 'filiere' },
-            { data: 'ville', name: 'ville' },
-            { data: 'tuteur_nom', name: 'tuteur_nom' },
-            { data: 'tuteur_tel1', name: 'tuteur_tel1' },
-            { data: 'tuteur_adresse', name: 'tuteur_adresse' },
-            {
-                data: 'actions',
-                name: 'actions',
-                orderable: false,
-                searchable: false
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        ],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'copy',
-                exportOptions: {
-                    columns: ':visible',
-                    modifier: {
-                        page: 'all'
-                    }
-                }
+        });
+    
+        var table = $('#etudiants-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": "{{ route('etudiants.data') }}",
+                "type": "GET",
             },
-            {
-                extend: 'csv',
-                exportOptions: {
-                    columns: ':visible',
-                    modifier: {
-                        page: 'all'
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'apogee', name: 'apogee' },
+                { data: 'CNE', name: 'CNE' },
+                { data: 'CNI', name: 'CNI' },
+                { data: 'Nom', name: 'Nom' },
+                { data: 'Prenom', name: 'Prenom' },
+                { data: 'telephone', name: 'telephone' },
+                { data: 'Email', name: 'Email' },
+                { data: 'Adresse', name: 'Adresse' },
+                { data: 'Sexe', name: 'Sexe' },
+                { data: 'Date_naissance', name: 'Date_naissance' },
+                { data: 'filiere', name: 'filiere' },
+                { data: 'ville', name: 'ville' },
+                { data: 'bourse_taux_bourse', name: 'bourse_taux_bourse' },
+                { data: 'tuteur_nom', name: 'tuteur_nom' },
+                { data: 'tuteur_tel1', name: 'tuteur_tel1' },
+                { data: 'tuteur_adresse', name: 'tuteur_adresse' },
+                {
+                    data: 'actions',
+                    name: 'actions',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, row) {
+                        return '<div style="display: flex; gap: 5px;">' +
+                            '<button class="btn btn-sm btn-primary edit-btn" data-id="' + row.id + '">Modifier</button>' +
+                            '<button class="btn btn-sm btn-danger delete-btn" data-id="' + row.id + '">Supprimer</button>' +
+                        '</div>';
                     }
                 }
-            },
-            {
-                extend: 'excel',
-                exportOptions: {
-                    columns: ':visible',
-                    modifier: {
-                        page: 'all'
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: { 
+                        modifier: { page: 'all' }
+                    }
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: { 
+                        modifier: { page: 'all' }
+                    }
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: { 
+                        modifier: { page: 'all' }
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: { 
+                        modifier: { page: 'all' }
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: { 
+                        modifier: { page: 'all' }
                     }
                 }
-            },
-            {
-                extend: 'pdf',
-                exportOptions: {
-                    columns: ':visible',
-                    modifier: {
-                        page: 'all'
+            ]
+        });
+    
+        // Edit Button Handler
+        $('#etudiants-table tbody').on('click', '.edit-btn', function() {
+            var row = $(this).closest('tr');
+            row.find('td').each(function(index, td) {
+                if (index < 16) { // Exclude the Actions column
+                    var cellData = $(td).text();
+                    var input = $('<input>', {
+                        type: 'text',
+                        class: 'form-control',
+                        value: cellData
+                    });
+                    $(td).html(input);
+                }
+            });
+    
+            // Replace Edit button with Save and Cancel buttons
+            var saveBtn = $('<button>', {
+                text: 'Save',
+                class: 'btn btn-sm btn-success save-btn'
+            });
+            var cancelBtn = $('<button>', {
+                text: 'Cancel',
+                class: 'btn btn-sm btn-secondary cancel-btn'
+            });
+            $(this).replaceWith(saveBtn.add(cancelBtn));
+        });
+    
+        // Save Button Handler
+        $('#etudiants-table tbody').on('click', '.save-btn', function() {
+            var row = $(this).closest('tr');
+            var rowData = { id: $(this).siblings('.edit-btn').data('id') };
+    
+            row.find('td').each(function(index, td) {
+                if (index < 16) {
+                    var input = $(td).find('input');
+                    if (input.length) {
+                        var key = table.column(index).dataSrc();
+                        rowData[key] = input.val();
                     }
                 }
-            },
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible',
-                    modifier: {
-                        page: 'all'
+            });
+    
+            console.log('Données envoyées:', rowData); // Pour déboguer
+    
+            $.ajax({
+                url: '/etudiants/' + rowData.id,
+                method: 'PUT',
+                data: rowData,
+                success: function(response) {
+                    table.ajax.reload(null, false); // Reload the table data
+                    alert('Étudiant mis à jour avec succès');
+                },
+                error: function(xhr) {
+                    console.error('Erreur lors de la mise à jour:', xhr.responseText);
+                    var errorMessages = xhr.responseJSON.message || 'Erreur inconnue';
+                    if (xhr.responseJSON.errors) {
+                        var errors = xhr.responseJSON.errors;
+                        errorMessages = '';
+                        for (var key in errors) {
+                            if (errors.hasOwnProperty(key)) {
+                                errorMessages += errors[key] + '\n';
+                            }
+                        }
                     }
+                    alert('Erreur lors de la mise à jour de l\'étudiant:\n' + errorMessages);
                 }
+            });
+        });
+    
+        // Cancel Button Handler
+        $('#etudiants-table tbody').on('click', '.cancel-btn', function() {
+            table.ajax.reload(null, false); // Reload the table data
+        });
+    
+        // Delete Button Handler
+        $('#etudiants-table tbody').on('click', '.delete-btn', function() {
+            var id = $(this).data('id');
+            var row = $(this).closest('tr');
+            if (confirm('Êtes-vous sûr de vouloir supprimer cet étudiant ?')) {
+                $.ajax({
+                    url: '/etudiants/' + id,
+                    method: 'DELETE',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content') // Inclure le token CSRF
+                    },
+                    success: function(response) {
+                        table.row(row).remove().draw(); // Remove row from table
+                        alert(response.message); // Affiche un message de succès
+                    },
+                    error: function(xhr) {
+                        console.error('Erreur lors de la suppression:', xhr.responseText);
+                        alert('Erreur lors de la suppression de l\'étudiant: ' + xhr.responseText);
+                    }
+                });
             }
-        ]
+        });
     });
-
-    // Code pour afficher le modal lors du clic sur le bouton "Modifier"
-   
-});
-</script>
-<script>
-      
-      $(document).ready(function() {
-    $('#etudiants-table').on('click', '.edit-btn', function(e) {
-        e.preventDefault();
-
-        var etudiantId = $(this).data('id');
-        var row = $(this).closest('tr');
-        var nom = row.find('td:eq(4)').text();
-        var prenom = row.find('td:eq(5)').text();
-        var cne = row.find('td:eq(2)').text();
-        var cni = row.find('td:eq(3)').text();
-        var dateNaissance = row.find('td:eq(10)').text(); 
-        var sexe = row.find('td:eq(9)').text();
-        var email = row.find('td:eq(7)').text();
-        var telephone = row.find('td:eq(6)').text();
-        var adresse = row.find('td:eq(8)').text();
-
-        $('#id').val(etudiantId);
-        $('#inputNom').val(nom);
-        $('#inputPrenom').val(prenom);
-        $('#inputCNE').val(cne);
-        $('#inputCNI').val(cni);
-        $('#inputDateNaissance').val(dateNaissance);
-        $('#inputSexe').val(sexe);
-        $('#inputEmail').val(email);
-       // Vérifiez que vous avez cet input avec cet ID
-        $('#exampleModalEdit').modal('show');
-    });
-});
-
-
-
-
-  </script>
+    </script>
+    
+    
 </body>
 </html>

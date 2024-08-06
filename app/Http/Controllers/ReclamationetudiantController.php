@@ -30,7 +30,7 @@ public function enregistrerReclamation(Request $request)
     // Validation des données du formulaire
     $request->validate([
         'apogee' => 'required|integer',
-        
+        'id_filiere' => 'required|integer',
         'type_reclamation' => 'required|string',
         'description' => 'required|string',
         'file_reclamation' => 'required|file',
@@ -41,7 +41,7 @@ public function enregistrerReclamation(Request $request)
     // Création d'une nouvelle réclamation
     $reclamation = new Reclamation();
     $reclamation->apogee = $request->apogee;
-   
+    $reclamation->id_filiere = $request->id_filiere;
     
     $reclamation->type_reclamation = $request->type_reclamation;
     $reclamation->description = $request->description;

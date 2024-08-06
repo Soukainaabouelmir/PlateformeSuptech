@@ -21,19 +21,18 @@ class Inscription extends Model
     {
         return $this->belongsTo(Filiere::class, 'id_filiere', 'id_filiere');
     }
-   
-
-    public function etablissement()
+    public function semestre()
     {
-        return $this->belongsTo(Etablissement::class, 'code_etab', 'code_etab');
+        return $this->belongsTo(Semestre::class, 'id_semestre', 'id_semestre');
     }
+
+   
     protected $fillable = [
         'apogee',
-        'code_etab',
+        'code_postal',
         'num_annee',
         'id_filiere',
-        'frais',
-        'niveau',
+        'id_semestre',
        
     ];
    
