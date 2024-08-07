@@ -113,6 +113,9 @@ Route::middleware(['is_scolarite'])->group(function () {
     Route::delete('/etudiants/{id}', [ListetudiantController::class, 'destroy'])->name('etudiants.destroy');
     Route::get('/etudiants/export', [ListetudiantController::class, 'export'])->name('etudiants.export');
     Route::get('/etudiant/data', [ListetudiantController::class, 'fetchEtudiantss'])->name('etudiants.data');
+    Route::get('/demandes/download/{apogee}', [DemandeScolariteController::class, 'download'])->name('demandes.download');
+
+
     // web.php (routes)
 
 
@@ -124,7 +127,7 @@ Route::middleware(['is_accueil'])->group(function () {
     Route::get('/absenceaccuiel', [AbsenceProfacceuilcontroller::class, 'index'])->name('absence.accueil');
     Route::get('/absence/create', [AbsenceProfacceuilcontroller::class, 'create'])->name('absenceacceuil');
     Route::post('/absence/accueil', [AbsenceProfacceuilcontroller::class, 'store'])->name('absence.store');
-
+    Route::get('/personnel/data', [AbsenceProfacceuilcontroller::class, 'data'])->name('accueil.data');
 });
 Route::get('/logoutaccueil', [AccueilLoginController::class, 'logout'])->name('logout.accueil');
 //**************************************PROF LOGIN */
@@ -155,6 +158,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('/loginetudiant', [EtudiantLoginController::class, 'index'])->name('etudient.login');
     Route::post('/loginetudiant2', [EtudiantLoginController::class, 'login_etudient'])->name('login.submit');
     Route::get('/homeetudiant', [homeetudiantController::class, 'index'])->name('homeetudiant');
+    Route::get('/paiements/{apogee}/{type_frais}', [PaiementetudiantController::class, 'getPaiements']);
 });
 
 Route::get('/logout', [EtudiantLoginController::class, 'logout'])->name('logout.etudiant');

@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\View;
+
 class DemandeScolariteController extends Controller
 {
     public function index()
@@ -16,44 +20,64 @@ class DemandeScolariteController extends Controller
         return view('scolarite.views.demandescolarite', compact('demande'));
     }
 //-----------------------------------------------------------------------------//
-    public function demandeEtudiants()
-    {
-        $demande = Demande::with('etudient')->select(['apogee', 'id', 'filiere', 'semestre', 'Numero', 'Email', 'Type']);
-    
-        return DataTables::of($demande)
-            ->addIndexColumn()
-            ->addColumn('Nom', function($demande) {
-                return $demande->etudient ? $demande->etudient->Nom : '';
-            })
-            ->addColumn('Prenom', function($demande) {
-                return $demande->etudient ? $demande->etudient->Prenom : '';
-            })
-            ->addColumn('actions', function($demande) {
-                $disabled = $demande->archive ? 'disabled' : '';
-                return '<div style="display: flex; gap: 5px;">
-                           <form id="validate-form-' . $demande->apogee . '" action="' . route('demandes.valider', $demande->apogee) . '" method="POST" style="margin: 0;">
-                               ' . csrf_field() . '
-                               <button type="button" class="btn" onclick="confirmValidation(' . $demande->apogee . ')" style="width:auto; background-color:green; color:#fff;" ' . $disabled . '>Validé</button>
-                           </form>
-                           <form id="archive-form-' . $demande->apogee . '" action="' . route('demandes.archiver', $demande->apogee) . '" method="POST" style="margin: 0;">
-                               ' . csrf_field() . '
-                               <button type="button" class="btn" onclick="confirmArchive(' . $demande->apogee . ')" style="width:auto; background-color:gray; color:#fff;" ' . $disabled . '>Archivé</button>
-                           </form>
-                       </div>';
-            })
-            ->setRowId(function ($demande) {
-                return 'row-' . $demande->apogee; // Définit l'ID de la ligne
-            })
-            ->rawColumns(['actions'])
-            ->make(true);
-    }
+   
 
    //---------------------------------------------------------------------//
 
 
    public function fetchDemandes()
+   {
+       $demandes = DB::table('demandes_etudiant')
+           ->select([
+               'demandes_etudiant.apogee',
+               'etudient.Prenom as etudiant_prenom',
+               'etudient.Email as etudiant_email',
+               'etudient.telephone as etudiant_telephone',
+               'demandes_etudiant.id_filiere',
+               'demandes_etudiant.id_document',
+               'etudient.Nom as etudiant_nom',
+               'filiere.intitule as filiere_intitule',
+               'document_admin.description as document_description'
+           ])
+           ->join('etudient', 'demandes_etudiant.apogee', '=', 'etudient.apogee')
+           ->join('filiere', 'demandes_etudiant.id_filiere', '=', 'filiere.id_filiere')
+           ->join('document_admin', 'demandes_etudiant.id_document', '=', 'document_admin.id_document');
+   
+       \Log::info($demandes->toSql()); // Log the SQL query
+       \Log::info($demandes->get());   // Log the query results
+   
+       return DataTables::of($demandes)
+           ->addColumn('actions', function($demande) {
+               // Définir les URLs pour valider, archiver et télécharger
+               $validateUrl = route('demandes.valider', $demande->apogee);
+               $archiveUrl = route('demandes.archiver', $demande->apogee);
+               $downloadUrl = route('demandes.download', ['apogee' => $demande->apogee, 'type' => $demande->document_description]);
+   
+               // Générer les boutons
+               return '<div style="display: flex; gap: 5px;">
+                           <form id="validate-form-' . $demande->apogee . '" action="' . $validateUrl . '" method="POST" style="margin: 0;">
+                               ' . csrf_field() . '
+                               <button type="button" class="btn" onclick="confirmValidation(' . $demande->apogee . ')" style="width:auto; background-color:green; color:#fff;">Validé</button>
+                           </form>
+                           <form id="archive-form-' . $demande->apogee . '" action="' . $archiveUrl . '" method="POST" style="margin: 0;">
+                               ' . csrf_field() . '
+                               <button type="button" class="btn" onclick="confirmArchive(' . $demande->apogee . ')" style="width:auto; background-color:gray; color:#fff;">Archivé</button>
+                           </form>
+                           <a href="' . $downloadUrl . '" class="btn" style="width:auto; background-color:blue; color:#fff;">Télécharger</a>
+                       </div>';
+           })
+           ->rawColumns(['actions']) // Ensure the HTML is not escaped
+           ->make(true);
+   }
+   
+    
+//------------------------------------------------------------//
+   
+public function download(Request $request, $apogee)
 {
-    $demandes = DB::table('demandes_etudiant')
+    $type = $request->query('type'); // Récupérer le type de demande depuis la requête
+
+    $demande = DB::table('demandes_etudiant')
         ->select([
             'demandes_etudiant.apogee',
             'etudient.Prenom as etudiant_prenom',
@@ -62,37 +86,78 @@ class DemandeScolariteController extends Controller
             'demandes_etudiant.id_filiere',
             'demandes_etudiant.id_document',
             'etudient.Nom as etudiant_nom',
+            'etudient.Date_naissance as etudiant_date_naissance',
+            'etudient.Adresse as etudiant_adresse',
             'filiere.intitule as filiere_intitule',
+            'filiere.duree as filiere_duree',
             'document_admin.description as document_description'
         ])
         ->join('etudient', 'demandes_etudiant.apogee', '=', 'etudient.apogee')
         ->join('filiere', 'demandes_etudiant.id_filiere', '=', 'filiere.id_filiere')
-        ->join('document_admin', 'demandes_etudiant.id_document', '=', 'document_admin.id_document');
+        ->join('document_admin', 'demandes_etudiant.id_document', '=', 'document_admin.id_document')
+        ->where('demandes_etudiant.apogee', $apogee)
+        ->first();
 
-    \Log::info($demandes->toSql()); // Log the SQL query
-    \Log::info($demandes->get());   // Log the query results
+    if (!$demande) {
+        return redirect()->back()->with('error', 'Demande non trouvée.');
+    }
 
-    return DataTables::of($demandes)
-        ->addColumn('actions', function($demande) {
-            // Generate the action buttons with CSRF tokens and event handlers
-            return '<div style="display: flex; gap: 5px;">
-                        <form id="validate-form-' . $demande->apogee . '" action="' . route('demandes.valider', $demande->apogee) . '" method="POST" style="margin: 0;">
-                            ' . csrf_field() . '
-                            <button type="button" class="btn" onclick="confirmValidation(' . $demande->apogee . ')" style="width:auto; background-color:green; color:#fff;">Validé</button>
-                        </form>
-                        <form id="archive-form-' . $demande->apogee . '" action="' . route('demandes.archiver', $demande->apogee) . '" method="POST" style="margin: 0;">
-                            ' . csrf_field() . '
-                            <button type="button" class="btn" onclick="confirmArchive(' . $demande->apogee . ')" style="width:auto; background-color:gray; color:#fff;">Archivé</button>
-                        </form>
-                    </div>';
-        })
-        ->rawColumns(['actions']) // Ensure the HTML is not escaped
-        ->make(true);
+    // Journaliser la description du document
+    \Log::info('Description du document: ' . $demande->document_description);
+
+    // Initialiser dompdf
+    $options = new Options();
+    $options->set('defaultFont', 'Helvetica');
+    $dompdf = new Dompdf($options);
+
+    $pdf = null;
+    $view = '';
+    $imagePath = public_path('asset/images/logo.webp');
+    $imageData = base64_encode(file_get_contents($imagePath));
+    $imageSrc = 'data:image/webp;base64,' . $imageData;
+
+    
+    $description = strtolower(trim($demande->document_description));
+
+   
+    \Log::info('Description normalisée: ' . $description);
+
+    
+    if ($description == strtolower('Attestation Inscription')) {
+        $view = View::make('scolarite.views.attestation', ['demande' => $demande])->render();
+    } elseif ($description == strtolower('Relevé de Note')) {
+        $view = View::make('scolarite.views.releve', ['demande' => $demande])->render();
+    }
+
+    if ($view) {
+        $dompdf->loadHtml($view);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $output = $dompdf->output();
+
+        return response()->stream(
+            function () use ($output) {
+                echo $output;
+            },
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="demande_' . $apogee . '.pdf"',
+            ]
+        );
+    }
+
+    return redirect()->back()->with('error', 'Type de demande invalide.');
 }
 
-    
-    
-//------------------------------------------------------------//
+
+
+
+
+
+
+
+
     public function destroy($id)
     {
         $demande = Demande::findOrFail($id);

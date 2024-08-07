@@ -11,26 +11,30 @@ use Illuminate\Support\Facades\Log;
 
 class AbsenceProfacceuilcontroller extends Controller
 {
-    public function fetchPersonnel()
+    public function data(Request $request)
     {
-        $personnel = Personnel::select(['cin_salarie', 'nom', 'prenom', 'etablissement']);
-
-        return DataTables::of($personnel)
-            ->addIndexColumn()
-            ->addColumn('actions', function($personnel) {
-                return '<div style="display: flex; gap: 5px;">
-                        <button type="button" class="btn btn-primary edit-btn" data-id="' . $personnel->cin_salarie . '" style="width:auto; background-color: #173165;">Modifier</button>
-                    </div>';
+        // Vérifiez si la requête est pour DataTables
+        if ($request->ajax()) {
+            $data = Personnel::where('est_prof', 1)->get(['CIN', 'nom', 'prenom']);
+            
+            return DataTables::of($data)
+            ->addColumn('actions', function ($row) {
+                // Ajoutez un bouton Edit avec un attribut data-id pour identifier l'entrée
+                return '<button class="btn btn-info edit-btn" data-id="' . $row->id_personnel . '">Edit</button>';
             })
-            ->rawColumns(['actions'])
-            ->make(true);
+                ->rawColumns(['actions'])
+                ->make(true);
+        }
+
+        return abort(404);
     }
+    
 
     public function create()
     {
         $elements = Element::all();
-        $enseignants = Enseignant::all();
-        return view('accueil.views.absenceprof', compact('elements', 'enseignants'));
+        
+        return view('accueil.views.absenceprof', compact('elements'));
     }
 
     public function store(Request $request)

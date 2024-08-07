@@ -6,9 +6,9 @@
     <style>
         .month-btn {
             background-color: rgb(210, 9, 9);
-            /* Changez la couleur selon vos préférences */
+            
             color: white;
-            /* Changez la couleur du texte si nécessaire */
+            
             width: 100px;
         }
 
@@ -112,8 +112,7 @@
                             </button>
         
                             <!-- Modal -->
-                            <div class="modal fade" id="monthModal" tabindex="-1" role="dialog" aria-labelledby="monthModalLabel"
-                                aria-hidden="true">
+                            <div class="modal fade" id="monthModal" tabindex="-1" role="dialog" aria-labelledby="monthModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -123,64 +122,20 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <!-- Boutons radio pour les mois de l'année -->
                                             <div class="btn-group-toggle" data-toggle="buttons">
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Janvier" id="paiement_id"
-                                                        name="mois_concerne[]" style="background-color: red;"> Janvier
-                                                </label>
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Fevrier" id="paiement_id"
-                                                        name="mois_concerne[]"> Février
-                                                </label>
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Mars" id="paiement_id"
-                                                        name="mois_concerne[]"> Mars
-                                                </label>
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Avril" id="paiement_id"
-                                                        name="mois_concerne[]"> Avril
-                                                </label>
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Mai" id="paiement_id"
-                                                        name="mois_concerne[]"> Mai
-                                                </label>
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Juin" id="paiement_id"
-                                                        name="mois_concerne[]"> Juin
-                                                </label>
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Juillet" id="paiement_id"
-                                                        name="mois_concerne[]"> Juillet
-                                                </label>
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Aout" id="paiement_id"
-                                                        name="mois_concerne[]"> Août
-                                                </label>
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Septembre" id="paiement_id"
-                                                        name="mois_concerne[]"> Septembre
-                                                </label>
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Octobre" id="paiement_id"
-                                                        name="mois_concerne[]"> Octobre
-                                                </label>
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Novembre" id="paiement_id"
-                                                        name="mois_concerne[]"> Novembre
-                                                </label>
-                                                <label class="btn btn-outline-secondary month-btn">
-                                                    <input type="checkbox" class="month-checkbox" value="Decembre" id="paiement_id"
-                                                        name="mois_concerne[]"> Décembre
-                                                </label>
+                                                @foreach (['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'] as $mois)
+                                                    @php
+                                                        $isPaid = in_array($mois, $paidMonths);
+                                                    @endphp
+                                                    <label class="btn btn-outline-secondary month-btn {{ $isPaid ? 'disabled bg-success' : '' }}">
+                                                        <input type="checkbox" class="month-checkbox" value="{{ $mois }}" name="mois_concerne[]" {{ $isPaid ? 'disabled' : '' }}> {{ $mois }}
+                                                    </label>
+                                                @endforeach
                                             </div>
-        
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                                style="background-color: #3966c2">Fermer</button>
-                                            <button type="button" id="savebtn" class="btn btn-primary"
-                                                style="background-color: #3966c2">Enregistrer</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #3966c2">Fermer</button>
+                                            <button type="button" id="savebtn" class="btn btn-primary" style="background-color: #3966c2">Enregistrer</button>
                                         </div>
                                     </div>
                                 </div>
@@ -204,8 +159,19 @@
                                         <label>Date Paiement</label>
                                         <input type="date" class="form-control" id="date_paiement" name="date_paiement" required>
                                     </div>
-                                   
-
+                                    <div class="form-group">
+                                        <label>Filiére</label>
+                                    <select class="form-control" id="filiere" name="id_filiere" required>
+                                        <option value="" disabled selected></option>
+                                        <option value="2">Génie Industriel et Logistique Hospitalière</option>
+                                        <option value="1">Classes Préparatoires</option>
+                                        <option value="3">Sciences de Gestion en Milieu Hospitalier et Industrie Médicale</option>
+                                        <option value="4">Génie Digital et Intélligence Artificielle en santé</option>
+                                        <option value="5">Dispositifs Médicaux et affaires Réglementaires</option>
+                                        <option value="6">Génie Biomédical</option>
+                                        <option value="7">Maintenance Médicale</option>
+                                        <option value="8">Entrepreneuriat et Management Technologique</option>
+                                    </select></div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -223,21 +189,23 @@
                                        
                                     </div>
                                     <div class="form-group">
+                                        <label>Reste à payer</label>
+                                        <input type="text" class="form-control" id="resteAPayer" name="resteAPayer"
+                                               value="{{ $resteAPayer }}" readonly>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Choix</label>
                                     
-                                            <select class="form-control" name="id_typepaiement">
+                                            <select id="type_frais" class="form-control" name="id_typepaiement">
                                                 <option value="1">Ecole</option>
-                                                <option value="2">Internat</option>
-                                                <option value="3">Salle de Sport</option>
-                                                <option value="4">Transport</option>
+                                               
                                                 
                                             </select>
                                         </div>
                                         
                                     </div>
                                     <div class="form-group">
-                                        <label for="mode"><strong>Mode de règlement Scolaire:</strong></label>
-                                        <div class="mode-reglement_radio d-flex justify-content-start">
+                                        
                                             <label for="mode"><strong>Mode de règlement Scolaire:</strong></label>
                             <div class="mode-reglement_radio d-flex justify-content-start">
                                 <label class="mr-3">
@@ -254,7 +222,7 @@
                                 </label>
                                     </div>
                                 </div>
-                            </div>
+                           
                             <div class="form-group">
                             <label for="inputFile" class="camera-button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
@@ -309,65 +277,49 @@
               
      
 
-    <script>
-       
-        document.querySelectorAll('.month-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                
-                const month = this.getAttribute('data-month');
-                
-            });
+<script>
+    document.querySelectorAll('.month-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const month = this.getAttribute('data-month');
         });
-       
-        const monthButtons = document.querySelectorAll('.month-btn');
+    });
 
-      
-        monthButtons.forEach(button => {
-            
-            button.addEventListener('click', () => {
-                
-                const isActive = button.classList.contains('active');
+    const monthButtons = document.querySelectorAll('.month-btn');
 
-                // Si le bouton est actif, supprimez la classe "active", sinon ajoutez-la
-                if (isActive) {
-                    button.classList.remove('active');
-                } else {
-                    button.classList.add('active');
-                }
-            });
+    monthButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const isActive = button.classList.contains('active');
+            if (isActive) {
+                button.classList.remove('active');
+            } else {
+                button.classList.add('active');
+            }
         });
-
-        function enregistrerPaiement() {
-    var moisSelectionnes = [];
-    // Parcours des cases cochées
-    $('.month-checkbox:checked').each(function() {
-        moisSelectionnes.push($(this).val());
     });
-    $.ajax({
-        type: 'POST',
-        url: '{{ route('enpaiement') }}', 
-        data: {
-            mois_concerne: moisSelectionnes
-        },
-        success: function(response) {
-            
-            alert('Mois enregistrés avec succès!');
-        },
-        error: function(xhr, status, error) {
 
-            console.error(error);
-        }
+    function enregistrerPaiement() {
+        var moisSelectionnes = [];
+        $('.month-checkbox:checked').each(function() {
+            moisSelectionnes.push($(this).val());
+        });
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('enpaiement') }}', 
+            data: {
+                mois_concerne: moisSelectionnes
+            },
+            success: function(response) {
+                alert('Mois enregistrés avec succès!');
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    $('#savebtn').on('click', function() {
+        enregistrerPaiement();
     });
-}
-
-$('#savebtn').on('click', function() {
-    enregistrerPaiement();
-});
-
-
-        
-    </script>
-
-
+</script>
 
 @endsection

@@ -15,6 +15,7 @@ class Paiement extends Model
        'apogee',
         'montant',
       'id_typepaiement',
+      'id_filiere',
         'date_paiement',
         'id_modepaiement',
         'mois_concerne',
@@ -25,6 +26,10 @@ class Paiement extends Model
     public function etudiant()
     {
         return $this->belongsTo(Etudians::class, 'apogee', 'apogee');
+    }
+    public function filiere()
+    {
+        return $this->belongsTo(Filiere::class, 'id_filiere', 'id_filiere');
     }
     public function modepaiement()
     {

@@ -37,7 +37,7 @@
     
         <div class="alert alert-success" role="alert">
             @foreach($demandes as $demande)
-            <li class="demande" style="color: black;">{{ $demande->etudient->Nom }} {{ $demande->etudient->Prenom }}</li> Voici vos demandes validées :
+            <li class="demande" style="color: black;">Bonjour {{ $demande->etudient->Nom }} {{ $demande->etudient->Prenom }}</li> Voici vos demandes validées :
             <ul>
                 
                  <li class="demnde">{{ $demande->document->description }}</li>

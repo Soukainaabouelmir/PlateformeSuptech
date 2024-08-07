@@ -13,7 +13,7 @@ class ReclamationscolariteController extends Controller
 
     public function index()
     {
-        $reclamation = Reclamation::paginate(10); // Paginer les résultats avec 10 étudiants par page
+        $reclamation = Reclamation::paginate(10); 
         return view('scolarite.views.reclamationscolarite', compact('reclamation'));
     }
     public function reclamationEtudiants()
@@ -34,7 +34,7 @@ class ReclamationscolariteController extends Controller
         ->join('filiere', 'reclamations.id_filiere', '=', 'filiere.id_filiere')
         ->join('etudient', 'reclamations.apogee', '=', 'etudient.apogee');
        
-    // Log the SQL query
+    
     \Log::info($reclamations->toSql());
 
         return DataTables::of($reclamations)
