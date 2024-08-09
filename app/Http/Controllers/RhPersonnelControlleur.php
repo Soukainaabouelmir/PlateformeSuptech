@@ -5,7 +5,7 @@ use App\Models\Etudians;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Personnel;
 
 
@@ -30,16 +30,26 @@ class RhPersonnelControlleur extends Controller
     
     public function fetchPersonnel()
 {
-    $personnel = Personnel::select([
-        'id', 'matricule_cnss', 'RIB', 'nom', 'prenom', 'etablissement',
-        'RIB_pdf', 'type_contrat', 'contrat_pdf', 'cv_pdf', 'cin_pdf'
+    $personnel = Personnel::leftJoin('lieu_personnel', 'personnel.id_personnel', '=', 'lieu_personnel.id_personnel')
+    ->leftJoin('lieu_affectation', 'lieu_personnel.id_lieu', '=', 'lieu_affectation.id_lieu')
+    ->select([
+        'personnel.id_personnel',
+        'personnel.nom',
+        'personnel.prenom',
+        'personnel.matricule_cnss',
+        'personnel.RIB',
+        'personnel.type_contrat',
+        'personnel.CIN',
+        'personnel.contrat_pdf',
+        'personnel.cv_pdf',
+        'personnel.cin_pdf',
+        'lieu_affectation.lieu_intitule as lieu_affect'
+        
     ]);
 
     return DataTables::of($personnel)
         ->addIndexColumn()
-        ->addColumn('RIB_pdf', function ($personnel) {
-            return $personnel->RIB_pdf ? '<a href="' . asset('asset/images/' . $personnel->RIB_pdf) . '" target="_blank">Voir</a>' : 'vide';
-        })
+       
         ->addColumn('contrat_pdf', function ($personnel) {
             return $personnel->contrat_pdf ? '<a href="' . asset('asset/images/' . $personnel->contrat_pdf) . '" target="_blank">Voir</a>' : 'vide';
         })
@@ -49,19 +59,20 @@ class RhPersonnelControlleur extends Controller
         ->addColumn('cin_pdf', function ($personnel) {
             return $personnel->cin_pdf ? '<a href="' . asset('asset/images/' . $personnel->cin_pdf) . '" target="_blank">Voir</a>' : 'vide';
         })
-        ->addColumn('actions', function ($personnel) {
+        ->addIndexColumn()
+        ->addColumn('actions', function($personnel) {
             return '<div style="display: flex; gap: 5px;">
-                        <button type="button" class="btn btn-primary edit-btn" data-id="' . $personnel->id . '" style="width:auto; background-color: #173165;">Modifier</button>
-                        <form id="delete-form-' . $personnel->id . '" action="' . route('personnel.destroy', $personnel->id) . '" method="POST" style="margin: 0;">
-                            ' . csrf_field() . method_field('DELETE') . '
-                            <button type="button" class="btn btn-danger" onclick="confirmDelete(\'' . $personnel->id . '\')" style="width:auto;">Supprimer</button>
-                        </form>
-                    </div>';
-        })
+                    <button type="button" class="btn btn-primary edit-btn" data-id="' . $personnel->id_personnel . '">Modifier</button>
+                    <form id="delete-form-' . $personnel->id_personnel . '" action="' . route('personnel.destroy', $personnel->id_personnel) . '" method="POST">
+                        ' . csrf_field() . method_field('DELETE') . '
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete(' . $personnel->id_personnel . ')" style="width:auto;">Supprimer</button>
+                    </form>
+                </div>';
+    })
         
         
        
-        ->rawColumns(['RIB_pdf', 'contrat_pdf', 'cv_pdf', 'cin_pdf', 'actions'])
+        ->rawColumns([ 'contrat_pdf', 'cv_pdf', 'cin_pdf', 'actions'])
         ->make(true);
 }
 
@@ -84,10 +95,10 @@ public function updatePersonnel(Request $request)
 }
 
 
-public function destroy($id)
+public function destroy($id_personnel)
 {
     // Find the personnel by cin_salarie
-    $personnel = Personnel::where('id', $id)->firstOrFail();
+    $personnel = Personnel::where('id_personnel', $id_personnel)->firstOrFail();
 
     // Delete the personnel
     $personnel->delete();
@@ -95,32 +106,26 @@ public function destroy($id)
     // Redirect back with a success message
     return redirect()->back()->with('success', 'Personnel supprimé avec succès.');
 }
-    public function store(Request $request)
-    {
+public function store(Request $request)
+{
+    try {
         $validatedData = $request->validate([
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'cin_salarie' => 'required|string|max:255',
-            'etablissement' => 'required|string|max:255',
+            'CIN' => 'required|string|max:255',
             'matricule_cnss' => 'required|string|max:255',
-            'mail' => 'required|email|max:255',
             'RIB' => 'required|string|max:255',
             'type_contrat' => 'required|string|max:255',
-            'RIB_pdf' => 'nullable|file|mimes:pdf|max:2048',
+            'est_prof' => 'nullable',
+            'est_Salarie' => 'nullable',
+            'est_Doctorant' => 'nullable',
             'contrat_pdf' => 'nullable|file|mimes:pdf|max:2048',
             'cv_pdf' => 'nullable|file|mimes:pdf|max:2048',
             'cin_pdf' => 'nullable|file|mimes:pdf|max:2048',
         ]);
 
         $personnel = new Personnel($validatedData);
-        $personnel->cin_salarie = Hash::make($request->cin_salarie);
-
-        if ($request->hasFile('RIB_pdf')) {
-            $file = $request->file('RIB_pdf');
-            $fileName = $file->getClientOriginalName();
-            $file->move(public_path('asset/images'), $fileName);
-            $personnel->RIB_pdf = $fileName;
-        }
+        
         if ($request->hasFile('contrat_pdf')) {
             $file = $request->file('contrat_pdf');
             $fileName = $file->getClientOriginalName();
@@ -142,6 +147,17 @@ public function destroy($id)
 
         $personnel->save();
 
+        if ($personnel->id_personnel) {
+            DB::table('lieu_personnel')->insert([
+                'id_personnel' => $personnel->id_personnel,
+                'id_lieu' => $request->input('id_lieu')
+            ]);
+        } else {
+            return redirect()->back()->withErrors(['error' => 'Failed to retrieve personnel ID.']);
+        }
         return redirect()->back()->with('success', 'Personnel ajouté avec succès!');
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
+}
 }

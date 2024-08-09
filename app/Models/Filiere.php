@@ -18,7 +18,7 @@ class Filiere extends Model
         'intitule',
         'description',
         'nombre_annee',
-       
+       'id_cycle',
         'cin_coordinateur',
           
            
@@ -48,5 +48,9 @@ class Filiere extends Model
     public function paiement()
     {
         return $this->hasMany(Paiement::class, 'id_filiere', 'id_filiere');
+    }
+    public function cycle()
+    {
+        return $this->belongsTo(Cycle::class, 'id_cycle', 'id_cycle');
     }
 }

@@ -82,7 +82,7 @@ Route::middleware(['is_rh'])->group(function () {
     Route::post('/update-Personnel', [RhPersonnelControlleur::class, 'updatePersonne'])->name('update-Personnel');
     Route::get('fetch-Personnel', [RhPersonnelControlleur::class, 'fetchPersonnel'])->name('getDataPersonnel');
     Route::get('/Personnel', [RhPersonnelControlleur::class, 'index'])->name('listPersonnel');
-    Route::delete('/personnel/{id}', [RhPersonnelControlleur::class, 'destroy'])->name('personnel.destroy');
+    Route::delete('/personnel/{id_personnel}', [RhPersonnelControlleur::class, 'destroy'])->name('personnel.destroy');
 });
 
 //===========================================Role Scolarité=======================================================
@@ -114,6 +114,7 @@ Route::middleware(['is_scolarite'])->group(function () {
     Route::get('/etudiants/export', [ListetudiantController::class, 'export'])->name('etudiants.export');
     Route::get('/etudiant/data', [ListetudiantController::class, 'fetchEtudiantss'])->name('etudiants.data');
     Route::get('/demandes/download/{apogee}', [DemandeScolariteController::class, 'download'])->name('demandes.download');
+    Route::post('/demandes/rejeter/{apogee}', [DemandeScolariteController::class, 'rejeter'])->name('demandes.rejeter');
 
 
     // web.php (routes)
@@ -164,6 +165,7 @@ Route::middleware(['web'])->group(function () {
 Route::get('/logout', [EtudiantLoginController::class, 'logout'])->name('logout.etudiant');
 
 
+Route::get('/etudiant/demandes/data', [DemandeetudiantController::class, 'demandeEtudiants'])->name('demandeEtudiants');
 
 route::get('/emploi', 'App\Http\Controllers\EmploietudiantController@index')->name('emploi');
 route::get('/demande', 'App\Http\Controllers\DemandeetudiantController@index')->name('demande');
@@ -171,7 +173,7 @@ route::get('/demandenotification', 'App\Http\Controllers\DemandeetudiantControll
 route::post('/enregistrer-demande', 'App\Http\Controllers\DemandeetudiantController@store')->name('endemande');
 route::get('/reclamation', 'App\Http\Controllers\ReclamationetudiantController@index')->name('reclamation');
 Route::post('/enregistrer-reclamation', 'App\Http\Controllers\ReclamationetudiantController@enregistrerReclamation')->name('enreclamation');
-Route::post('/enregistrer-paiement', 'App\Http\Controllers\PaiementetudiantController@enregistrerPaiement')->name('enpaiement');
+Route::post('/enregistrer-paiement', 'App\Http\Controllers\PaiementetudiantController@store')->name('enpaiement');
 
 route::get('/paiement', 'App\Http\Controllers\PaiementetudiantController@index')->name('paiement');
 route::get('/note', 'App\Http\Controllers\NoteEtudiantController@index')->name('note');
@@ -228,7 +230,7 @@ Route::get('fetch-etudiants', [AjouteNoteController::class, 'fetchEtudiants'])->
 Route::get('/historiqueprofesseur/search', [HistoriqueprofController::class, 'fetchHistorique'])->name('hisroriqueprofesseur');
 Route::get('/historiqueprof', [HistoriqueprofController::class, 'index'])->name('historiqueprof');
 
-Route::get('demadneetudiants', [DemandeetudiantController::class, 'demandeEtudiants'])->name('getDataDemandeetudiant');
+
 Route::get('/fetch-etudiants', [AjouteNoteController::class, 'indexx'])->name('fetch.etudiants');
 Route::get('/fetch', [AjouteNoteController::class, 'index'])->name('fetch');
 
@@ -272,5 +274,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/import-etudiants', [EtudiantController::class, 'importExcel'])->name('import');
+
 
 Route::get('/export-etudiants', [EtudiantController::class, 'exportExcel'])->name('export');

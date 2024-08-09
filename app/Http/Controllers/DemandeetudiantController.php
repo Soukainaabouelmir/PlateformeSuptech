@@ -5,16 +5,21 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Demande;
 use App\Models\Etudians;
+use App\Models\Filiere;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 class DemandeetudiantController extends Controller
 {
     public function index(){
         $user = Auth::guard('etudient')->user();
-       
-        return view ('etudiant.views.demandetudiant',compact('user'));}
+        $inscription = DB::table('inscriptions')->where('apogee', $user->apogee)->first();
+        $filiere = Filiere::where('id_filiere', $inscription->id_filiere)->first();
+        
+        return view ('etudiant.views.demandetudiant',compact('user','filiere','inscription'));}
         public function indexx(){
             $user = Auth::guard('etudient')->user();
-           
-
+    
+            
             return view ('etudiant.views.demandenotification');}
 
         public function enregistrerDemande(Request $request)
@@ -49,18 +54,7 @@ class DemandeetudiantController extends Controller
         
     }
   
-    public function demandeEtudiants(Request $request)
-    {
-       
-        $user = Auth::guard('etudient')->user();
-        
-       
-        $demande = Demande::where('apogee', $user->apogee)->select([
-            'Nom', 'Prenom','Numero','Email','Type'
-        ]);
-    
-        return DataTables::of($demande)->make(true);
-    }
+   
     public function espace()
     {
         // Récupérer l'étudiant authentifié
@@ -72,7 +66,7 @@ class DemandeetudiantController extends Controller
                                    ->with('document')
                                    ->with('etudient') // Charger la relation document
                                    ->get();
-
+                                 
         return view('etudiant.views.demandenotification', compact('demandes'));
     }
     
@@ -84,6 +78,7 @@ class DemandeetudiantController extends Controller
         $request->validate([
             'apogee' => 'required|exists:etudient,apogee',
             'id_filiere' => 'required',
+            'date_demande' => 'required',
            'id_document' => 'required|exists:document_admin,id_document',
         ]);
 
@@ -92,10 +87,35 @@ class DemandeetudiantController extends Controller
             'apogee' => $request->input('apogee'),
             'id_filiere' => $request->input('id_filiere'),
             'id_document' => $request->input('id_document'),
+            'date_demande' => $request->input('date_demande'),
         ]);
 
         // Rediriger avec un message de succès
         return redirect()->back()->with('success', 'Demande enregistrée avec succès.');
     }
+
+    public function demandeEtudiants(Request $request)
+    {
+        $user = Auth::guard('etudient')->user();
+        
+        // Récupérer les demandes de l'étudiant connecté
+        $demandes = Demande::join('etudient', 'demandes_etudiant.apogee', '=', 'etudient.apogee')
+        ->join('document_admin', 'demandes_etudiant.id_document', '=', 'document_admin.id_document')
+        ->where('demandes_etudiant.apogee', $user->apogee)
+        ->select([
+            'etudient.Nom',
+            'etudient.Prenom',
+            'demandes_etudiant.id_document',
+            'document_admin.description as document_description',
+            DB::raw("IF(demandes_etudiant.status IS NULL, 'Demande en cours', demandes_etudiant.status) as EtatDemande"),
+            'demandes_etudiant.created_at as DateDemande',
+            'demandes_etudiant.motif_rejet as Motif'
+        ])
+        ->get();
+    
+        return DataTables::of($demandes)->make(true);
+    }
+    
+
 }
 

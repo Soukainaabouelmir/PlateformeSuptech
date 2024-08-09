@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Demande extends Model
 {
     protected $table = 'demandes_etudiant';
-    protected $fillable = ['apogee', 'id_filiere', 'id_document','status','message','archive'];
+    protected $fillable = ['apogee', 'id_filiere', 'id_document','date_demande','status','message','archive'];
 
     public $timestamps = false;
     public function etudient()

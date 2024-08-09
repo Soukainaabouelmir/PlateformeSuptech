@@ -86,20 +86,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
-                <h6>Filière</h6>
-                <select class="form-control" id="filiere" name="id_filiere" required>
-                    <option value="" disabled selected></option>
-                    <option value="2">Génie Industriel et Logistique Hospitalière</option>
-                    <option value="1">Classes Préparatoires</option>
-                    <option value="3">Sciences de Gestion en Milieu Hospitalier et Industrie Médicale</option>
-                    <option value="4">Génie Digital et Intélligence Artificielle en santé</option>
-                    <option value="5">Dispositifs Médicaux et affaires Réglementaires</option>
-                    <option value="6">Génie Biomédical</option>
-                    <option value="7">Maintenance Médicale</option>
-                    <option value="8">Entrepreneuriat et Management Technologique</option>
-                </select>
-            </div>
+            <input type="hidden" id="filiere" name="id_filiere" value="{{ $filiere->id_filiere }}">
             <div class="col-md-6">
                 <h6>Type de réclamation :</h6>
                 <select class="form-control" name="type_reclamation" required>
@@ -108,14 +95,13 @@
                     <option value="Réclamation transport">Réclamation Transport</option>
                 </select>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <h6>Description :</h6>
                 <textarea class="form-control" rows="8" name="description"></textarea>
             </div>
         </div>
+
+        
 
         <div class="row">
             <div class="col-md-12">
@@ -126,7 +112,7 @@
                         <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0" />
                     </svg>
                     <input type="file" id="file-reclamation" name="file_reclamation" class="file-input">
-                    Sélectionner un fichier
+                   
                 </label>
             </div>
         </div>

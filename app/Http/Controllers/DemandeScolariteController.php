@@ -19,10 +19,7 @@ class DemandeScolariteController extends Controller
         $demande = Demande::paginate(10); // Paginer les résultats avec 10 étudiants par page
         return view('scolarite.views.demandescolarite', compact('demande'));
     }
-//-----------------------------------------------------------------------------//
-   
 
-   //---------------------------------------------------------------------//
 
 
    public function fetchDemandes()
@@ -48,12 +45,13 @@ class DemandeScolariteController extends Controller
    
        return DataTables::of($demandes)
            ->addColumn('actions', function($demande) {
-               // Définir les URLs pour valider, archiver et télécharger
+               // Définir les URLs pour valider, archiver, rejeter et télécharger
                $validateUrl = route('demandes.valider', $demande->apogee);
                $archiveUrl = route('demandes.archiver', $demande->apogee);
+               $rejectUrl = route('demandes.rejeter', $demande->apogee);
                $downloadUrl = route('demandes.download', ['apogee' => $demande->apogee, 'type' => $demande->document_description]);
    
-               // Générer les boutons
+               // Générer les boutons avec le modal pour rejeter
                return '<div style="display: flex; gap: 5px;">
                            <form id="validate-form-' . $demande->apogee . '" action="' . $validateUrl . '" method="POST" style="margin: 0;">
                                ' . csrf_field() . '
@@ -63,12 +61,14 @@ class DemandeScolariteController extends Controller
                                ' . csrf_field() . '
                                <button type="button" class="btn" onclick="confirmArchive(' . $demande->apogee . ')" style="width:auto; background-color:gray; color:#fff;">Archivé</button>
                            </form>
+                           <button type="button" class="btn" data-toggle="modal" data-target="#rejectModal" data-apogee="' . $demande->apogee . '" style="width:auto; background-color:red; color:#fff;">Rejeter</button>
                            <a href="' . $downloadUrl . '" class="btn" style="width:auto; background-color:blue; color:#fff;">Télécharger</a>
                        </div>';
            })
            ->rawColumns(['actions']) // Ensure the HTML is not escaped
            ->make(true);
    }
+   
    
     
 //------------------------------------------------------------//
@@ -151,13 +151,6 @@ public function download(Request $request, $apogee)
 }
 
 
-
-
-
-
-
-
-
     public function destroy($id)
     {
         $demande = Demande::findOrFail($id);
@@ -188,4 +181,20 @@ public function download(Request $request, $apogee)
     
         return redirect()->back()->with('success', 'Demande archivée.');
     }
+    public function rejeter(Request $request, $apogee)
+{
+    $request->validate([
+        'motif_rejet' => 'required|string|max:255',
+    ]);
+
+    $demande = Demande::where('apogee', $apogee)->firstOrFail();
+    
+    // Marquer la demande comme rejetée
+    $demande->status = 'rejeté';
+    $demande->motif_rejet = $request->motif_rejet; // Enregistrer le motif du rejet
+    $demande->save();
+
+    return redirect()->back()->with('success', 'Demande rejetée avec le motif: ' . $request->motif_rejet);
+}
+
 }

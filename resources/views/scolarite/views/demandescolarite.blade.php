@@ -120,30 +120,41 @@
 <div class="content-wrap">
     <div class="main">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-8 p-r-0 title-margin-right">
-                    <div class="page-header">
-                    </div>
-                </div>
-                <!-- /# column -->
-                <div class="col-lg-4 p-l-0 title-margin-left">
-                    <div class="page-header">
-                        <div class="page-title">
-                            <ol class="breadcrumb">
-                               
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-                <!-- /# column -->
-            </div>
-            <!-- /# row -->
+           
+           
             <section id="main-content">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="bootstrap-data-table-panel">
                                 <div class="table-responsive">
+                                   
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="reject-form" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rejectModalLabel">Motif de Rejet</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="motif_rejet">Indiquez le motif du rejet:</label>
+                        <textarea class="form-control" id="motif_rejet" name="motif_rejet" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-danger">Rejeter la demande</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
                                     <table id="demandes-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
@@ -231,7 +242,7 @@
                 {
                     extend: 'csv',
                     exportOptions: {
-                        columns: ':visible'
+                        columns: 'visible'
                     }
                 },
                 {
@@ -284,6 +295,15 @@ function confirmArchive(apogee) {
 }
 </script>
 
+<script>
+    $('#rejectModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Bouton qui a déclenché le modal
+    var apogee = button.data('apogee'); // Extraire les informations depuis les attributs data-*
 
+    var form = $('#reject-form');
+    form.attr('action', '/demandes/rejeter/' + apogee);
+});
+
+</script>
 </body>
 </html>

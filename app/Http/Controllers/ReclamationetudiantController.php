@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Reclamation;
+use App\Models\Filiere;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,8 +19,10 @@ class ReclamationetudiantController extends Controller
     $inscription = DB::table('inscriptions')
     ->where('inscriptions.apogee', $user->apogee)
     ->first();
-  
-    return view('etudiant.views.reclamationetudiant', compact('user', 'inscription'));
+    $inscription = DB::table('inscriptions')->where('apogee', $user->apogee)->first();
+    $filiere = Filiere::where('id_filiere', $inscription->id_filiere)->first();
+    
+    return view('etudiant.views.reclamationetudiant', compact('user', 'inscription','filiere'));
 }
 
 

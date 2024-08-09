@@ -1,6 +1,13 @@
 <link rel="icon" type="image/png" href="{{ asset('asset/images/logo_img.png') }}">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css">
+<link href="{{ asset('asset/css/lib/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/themify-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/data-table/buttons.bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('asset/css/lib/menubar/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/lib/helper.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/style.css') }}" rel="stylesheet">
 @extends('etudiant.layouts.navbaretudiant')
 @section('contenu')
 <style>
@@ -136,6 +143,7 @@ input{
 </style>
 
 <div class="container" id="informations-demande-content" style=" margin-top: 30px;">
+    
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -169,33 +177,11 @@ input{
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <h6>Filière</h6>
-                    <select class="form-control" id="filiere" name="id_filiere" required>
-                        <option value="" disabled selected></option>
-                        <option value="2">Génie Industriel et Logistique Hospitalière</option>
-                        <option value="1">Classes Préparatoires</option>
-                        <option value="3">Sciences de Gestion en Milieu Hospitalier et Industrie Médicale</option>
-                        <option value="4">Génie Digital et Intélligence Artificielle en santé</option>
-                        <option value="5">Dispositifs Médicaux et affaires Réglementaires</option>
-                        <option value="6">Génie Biomédical</option>
-                        <option value="7">Maintenance Médicale</option>
-                        <option value="8">Entrepreneuriat et Management Technologique</option>
-                    </select>
+                    <h6>Date:</h6>
+                    <input class="form-control" type="date" name="date_demande">
                 </div>
+                <input type="hidden" id="filiere" name="id_filiere" value="{{ $filiere->id_filiere }}">
                 <div class="col-md-6">
-                    <h6>Semestre</h6>
-                    <select class="form-control" id="semestre" name="semestre">
-                        <option value="S1">S1</option>
-                        <option value="S2">S2</option>
-                        <option value="S3">S3</option>
-                        <option value="S4">S4</option>
-                        <option value="S5">S5</option>
-                        <option value="S6">S6</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
                     <h6>Type de demande :</h6>
                     <select class="form-control" name="id_document">
                         <option value="1">Attestation Inscription</option>
@@ -203,6 +189,7 @@ input{
                     </select>
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-md-12">
                     <button class="btn button-enregistrer">Enregistrer</button>
@@ -210,23 +197,14 @@ input{
             </div>
         </form>
     
+        
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="//cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
 <script>
-    const boutonInformations = document.getElementById('boutonInformations');
-    const boutonCursus = document.getElementById('boutonCursus');
-
-    boutonInformations.addEventListener('click', function() {
-        document.getElementById('informations-demande-content').style.display = 'block';
-        document.getElementById('historique-demande-content').style.display = 'none';
-    });
-
-    boutonCursus.addEventListener('click', function() {
-        document.getElementById('historique-demande-content').style.display = 'block';
-        document.getElementById('informations-demande-content').style.display = 'none';
-    });
+   
 </script>
 
 @endsection

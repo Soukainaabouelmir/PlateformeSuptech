@@ -12,8 +12,11 @@ class Personnel extends Model
         'nom', 'prenom', 'CIN', 'matricule_cnss', 'mail', 'etablissement',
         'RIB', 'RIB_pdf', 'type_contrat', 'contrat_pdf', 'cv_pdf', 'cin_pdf','est_prof','est_salarie'
     ];
-    
+
     public $timestamps = false;
 
-   
+    public function lieu()
+    {
+        return $this->belongsToMany(LieuAffectation::class, 'lieu_personnel', 'id_personnel', 'id_lieu');
+    }
 }

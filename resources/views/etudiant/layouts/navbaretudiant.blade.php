@@ -55,7 +55,7 @@
                     <li><a href="{{ route('etudiant.views.exametudiant') }}"><i class="ti-marker-alt"></i> Mes Exams</a></li>
                     <li><a href="{{ route('note') }}"><i class="ti-view-list-alt"></i> Notes </a></li>
                     <li><a href="{{ route('demande') }}"><i class="ti-files"></i> Mes Demandes </a></li>
-                    <li><a href="{{ route('demandenotification') }}"><i class="ti-email"></i> Validation des demandes </a></li>
+                    <li><a href="{{ route('demandenotification') }}"><i class="ti-time"></i> Historique  demandes </a></li>
                     <li><a href="{{ route('reclamation') }}"><i class="ti-alert"></i> Mes Réclamations </a></li>
                    
                 </ul>

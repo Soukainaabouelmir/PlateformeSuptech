@@ -11,6 +11,7 @@ class Typepaiement extends Model
     protected $fillable = [
         'id_typepaiement',
         'description',
+        'cout',
 
     ];
     public $timestamps = false;

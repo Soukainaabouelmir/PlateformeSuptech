@@ -40,7 +40,9 @@
             border-radius: 4px;
             width: 100%;
         }
-
+        .modal-open {
+    overflow:hidden;
+}
         /* Style pour l'état hover */
         .form-select:hover {
             border-color: #356895;

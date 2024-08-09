@@ -129,8 +129,9 @@ tr{
                                     </div>
                                     <div class="form-group">
                                         <label>Cycle</label>
-                                        <input type="text" class="form-control" id="cycle" name="Cycle"  readonly>
+                                        <input type="text" class="form-control" id="cycle" name="Cycle" value="{{ $cycle->cycle_intitule ?? '' }}" readonly>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <label>Code National de l'Etudiant(CNE)
                                             :</label>
@@ -138,7 +139,7 @@ tr{
                                             value="{{ $user->CNE ?? '' }}" readonly>
                                     </div>
                                    
-                                    
+                                   
 
                                 </div>
                                 <div class="col-lg-6"> @if ($inscriptions->isNotEmpty())
@@ -147,8 +148,7 @@ tr{
                                         <label for="inscriptions_num_annee_{{ $index }}">Date Inscription</label>
                                         <input class="form-control" type="text" id="inscriptions_num_annee_{{ $index }}" name="inscriptions_num_annee_{{ $index }}" value="{{ $inscriptions->num_annee }}" readonly>
                                     </div>@endforeach
-                                    @else
-                                        <p>Aucun tuteur associé.</p>
+                                  
                                     @endif
                                     @if ($filiere->isNotEmpty())
                                     @foreach($filiere as $index => $filiere)
@@ -156,20 +156,15 @@ tr{
                                         <label for="filiere_intitule_{{ $index }}">Filiére</label>
                                         <input class="form-control" type="text" id="filiere_intitule_{{ $index }}" name="filiere_intitule_{{ $index }}" value="{{ $filiere->intitule }}" readonly>
                                     </div> @endforeach
-                                    @else
-                                        <p>Aucun tuteur associé.</p>
-                                    @endif
-                                    @if ($etablissement->isNotEmpty())
-                                    @foreach($etablissement as $index => $etablissement)
-                                    <div class="form-group">
-                                        <label for="etablissement_ville_{{ $index }}">Etablissement</label>
-                                        <input class="form-control" type="text" id="etablissement_ville_{{ $index }}" name="etablissement_ville_{{ $index }}" value="{{ $etablissement->ville }}" readonly>
-                                        
-                                    </div>
                                    
-                                    @endforeach
-                                    @else
-                                        <p>Aucun tuteur associé.</p>
+                                    @endif
+                                    @if ($bourse->isNotEmpty())
+                                    @foreach($bourse as $index => $bourse)
+                                    <div class="form-group">
+                                        <label for="bourse_taux_{{ $index }}">Pourcentage de bourse</label>
+                                        <input class="form-control" type="text" id="bourse_taux_{{ $index }}" name="bourse_taux_{{ $index }}" value="{{ $bourse->taux_bourse }}" readonly>
+                                    </div> @endforeach
+                                   
                                     @endif
                                 </div>
                             </div>
@@ -239,8 +234,7 @@ tr{
                                         <input type="text" class="form-control" id="pays_pays_{{ $index }}" name="pays_pays_{{ $index }}" value="{{ $pays->pays }}"  readonly>
                                        
                                     </div> @endforeach
-                                    @else
-                                        <p>Aucun tuteur associé.</p>
+                                  
                                     @endif
                                     <div class="form-group">
                                         <label>Email</label>
@@ -304,9 +298,9 @@ tr{
                                 </div>
                             </div>
                             @endforeach
-                            @else
-                                <p>Aucun tuteur associé.</p>
+                           
                             @endif
+                            
                         </form>
                     </div>
                 </div>
